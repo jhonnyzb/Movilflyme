@@ -1,0 +1,47 @@
+<ion-header no-border>
+  <ion-toolbar color="footer" text-center>
+    <ion-title>
+     <h3>FLYME</h3>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding color="footer">
+  <ion-avatar class="center animated infinite pulse ">
+    <img src="../../assets/icon/user.svg">
+  </ion-avatar><br>
+
+  <ion-list class="background-input animated bounceIn">
+    <form (ngSubmit)="LoginForm()">
+      <ion-item>
+        <ion-icon name="mail" class="ion-padding-end"></ion-icon>
+        <ion-input class="ion-text-left" placeholder="Correo" [(ngModel)]="Usuario.email"
+        name="email" clearInput="true" ></ion-input>
+      </ion-item><br>
+      <ion-item>
+        <ion-icon name="key" class="ion-padding-end"></ion-icon>
+        <ion-input class="ion-text-left" placeholder="Password" [(ngModel)]="Usuario.pass"
+        name="pass" clearInput="true" ></ion-input>
+      </ion-item><br>
+      <ion-button  type="submit" mode="ios" expand="block" color="colorfooter">Ingresar</ion-button>
+    </form>
+  </ion-list>
+
+</ion-content>
+
+
+<ion-footer no-border >
+  <ion-toolbar color="footer" >
+    <ion-buttons slot="start">
+      <ion-button mode="ios" routerLink="/registro">
+       <ion-icon name="clipboard" class="ion-padding-end" ></ion-icon>
+       <ion-label>Registrarse</ion-label>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+       <ion-button mode="ios">
+         <ion-label>Recordar</ion-label>
+        <ion-icon name="help" class="ion-padding-start" ></ion-icon>
+       </ion-button>
+     </ion-buttons>
+  </ion-toolbar>
+ </ion-footer>

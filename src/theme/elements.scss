@@ -1,0 +1,45 @@
+.line-input {
+  margin-bottom: 0 !important;
+  ion-item {
+    --border-color: transparent !important;
+    --highlight-height: 0;
+    border: 1px solid #dedede;
+    border-radius: 15px;
+    &.item-has-focus {
+      border: 1px solid var(--ion-color-primary);
+    }
+    ion-label {
+      color: #807e7e !important;
+      font-weight: 300;
+      font-size: 1rem !important;
+    }
+  }
+}
+
+.background-input {
+  margin-bottom: 0 !important;
+  background-color: transparent !important;
+  ion-item {
+    --border-color: transparent !important;
+    --highlight-height: 0;
+    --background: none;
+    background: rgba(var(--ion-color-light-rgb), 1);
+    border-radius: 15px;
+    margin-bottom: 10px !important;
+    ion-input {
+      --color: black;
+      font-weight: bold
+    }
+  }
+}
+
+.center {
+  margin-top: 40px !important;
+  margin-bottom: 30px !important;
+  height: 120px;
+  width: 120px;
+  margin: auto;
+  display: block;
+}
+
+
