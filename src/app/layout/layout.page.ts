@@ -14,9 +14,6 @@ export class LayoutPage implements OnInit {
   }
 
 
-  Salir(){
-    this.router.navigate(['/login'])
-  }
 }
 
 

@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ServicesAllService {
 
   Items: any;
+  opcion: any;
   baseUrl: string = 'http://10.133.10.175'
 
   constructor(private http: HttpClient) { }
@@ -92,6 +93,34 @@ export class ServicesAllService {
       },
     ]
   }
+
+opcionHomeTicket(){
+
+  return this.opcion =[
+    {
+      id: 1,
+      opcion: 'Anticipo',
+      value: 'anticipo'
+     
+    },
+    {
+      id: 2,
+      opcion: 'Pasaje aereo',
+      value: 'pasajeAereo'
+    },
+    {
+      id: 3,
+      opcion: 'Reembolso',
+      value : 'reembolso'
+    },
+    {
+      id: 4,
+      opcion: 'Aereo personal',
+      value: 'aereoPersonal'
+    }
+  ]
+}
+
 
 
 }

@@ -13,6 +13,10 @@ const routes: Routes = [
     component: LayoutPage,
     children: [
       {
+        path: 'home',
+        loadChildren: () => import ('../home/home.module').then(m => m.HomePageModule)
+      },
+      {
         path: 'sotickets',
         loadChildren: () => import ('../sotickets/sotickets.module').then(m => m.SoticketsPageModule)
       },
@@ -22,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'sotickets', pathMatch: 'full'
+        redirectTo: 'home', pathMatch: 'full'
       }
     ]
   }

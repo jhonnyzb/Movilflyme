@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="footer" text-center>
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-label>Solicitud Pasajes</ion-label>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-slides pager="true">
+    <ion-slide>
+      <img src="../../assets/img/edi_5.webp" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/img/edi_5.webp " alt="">
+    </ion-slide>
+  </ion-slides>
+
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" mode="md" color="footer" value="2019">
+      <ion-segment-button value="2019">
+        <ion-icon color="primary" name="body"></ion-icon>
+        <ion-label text-capitalize color="footer">Pasaje personal</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2020">
+        <ion-icon color="primary" name="jet"></ion-icon>
+        <ion-label text-capitalize color="footer">Pasaje laboral</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div margin-top padding>
+      <ion-item>
+          <ion-label>Tipo de registro</ion-label>
+          <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambio($event)">
+            <ion-select-option value="" disabled>Seleccione Uno</ion-select-option>
+            <ion-select-option  *ngFor="let opcion of opciones" value="{{opcion.value}}">{{opcion.opcion}}</ion-select-option>
+            
+          </ion-select>
+        </ion-item>
+  </div>
+  <div margin-top padding>
+      <ion-item>
+          <ion-label>Estados</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="AereoP">Pasaje aereo personal</ion-select-option>
+            <ion-select-option value="Anticipo">Anticipos</ion-select-option>
+          </ion-select>
+        </ion-item>
+  </div>
+
+</ion-content>
