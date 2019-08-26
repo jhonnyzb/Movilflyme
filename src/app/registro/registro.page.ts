@@ -8,7 +8,11 @@ import { ServicesAllService } from '../servicios/services-all.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  registro = {};
+  registro = {
+    nombre: '',
+    email: '',
+    password: ''
+  };
 
   constructor(private register: ServicesAllService, public alert: AlertController) { }
 
@@ -18,7 +22,7 @@ export class RegistroPage implements OnInit {
   RegisterForm() {
     this.register.register(this.registro).subscribe(
       (res)=>{
-          console.log('OK')
+          console.log('OK', res)
       },
       (err)=>{
         this.presentAlert();
@@ -37,7 +41,11 @@ export class RegistroPage implements OnInit {
   }
 
   Clearform(){
-    this.registro = {}
+    this.registro = {
+      nombre: '',
+      email: '',
+      password: ''
+    }
   }
 
 

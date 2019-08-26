@@ -11,8 +11,8 @@ import { ServicesAllService } from '../servicios/services-all.service';
 export class LoginPage implements OnInit {
 
   Usuario = {
-    mail: '',
-    pass: ''
+    email: '',
+    password: ''
   }
 
   constructor( private router: Router,private slogin: ServicesAllService, public alert: AlertController) { }
@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
   LoginForm(){
 
     this.slogin.login(this.Usuario).subscribe(
-      (res)=> {
+      (res:any)=> {
+        localStorage.setItem('token',res.access_token)
         this.router.navigate(['/layout'])
       },
       (err)=>{

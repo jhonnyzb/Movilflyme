@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +7,22 @@ import { HttpClient } from '@angular/common/http';
 export class ServicesAllService {
 
   Items: any;
+  baseUrl: string = 'http://10.133.10.175'
 
   constructor(private http: HttpClient) { }
 
 
 
   public login (login:any){
+    //return this.http.post(this.baseUrl + '/auth/login', login);
     return this.http.get('https://jsonplaceholder.typicode.com/users')
   }
 
 
   public register(registro: any){
-
+    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
+     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
+    //});
     return this.http.get('https://jsonplaceholder.typicode.com/posts');
   
   
@@ -26,12 +30,16 @@ export class ServicesAllService {
 
 
   public ticketLaboral(fecha:any){
-
+    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
+     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
+    //});
     return this.http.post('jgjgk', fecha);
   }
 
   public ticketPersonal(dataTicket:any){
-
+    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
+     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
+    //});
     return this.http.post('fhg', dataTicket);
   }
 

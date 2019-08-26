@@ -19,7 +19,7 @@
   </ion-slides>
 
 
-  <div text-center class="animated bounceInUp">
+  <div text-center class="animated bounceInUp" padding>
     <ion-item text-center>
       <ion-label>
         Fecha solicitud
@@ -27,12 +27,12 @@
     </ion-item>
     <ion-item>
       <ion-label>Laboral</ion-label>
-      <ion-datetime [pickerOptions]="optionspickersL" [ngModel]="fecha_actual_laboral.toISOString()">
+      <ion-datetime [pickerOptions]="optionspickersL" [ngModel]="fecha_actual_laboral.toISOString()" min="2019-01-01" max="2024-12-31" monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic" >
       </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Personal</ion-label>
-      <ion-datetime [pickerOptions]="optionspickersP" [ngModel]="fecha_actual_personal.toISOString()">
+      <ion-datetime [pickerOptions]="optionspickersP" [ngModel]="fecha_actual_personal.toISOString()" min="2019-01-01" max="2024-12-31" monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
       </ion-datetime>
     </ion-item><br>
 
