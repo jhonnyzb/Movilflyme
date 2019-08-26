@@ -95,7 +95,6 @@ export class ServicesAllService {
   }
 
 opcionHomeTicket(){
-
   return this.opcion =[
     {
       id: 1,
