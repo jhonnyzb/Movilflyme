@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './registro/registro.module#RegistroPageModule' },
   { path: 'sotickets', loadChildren: './sotickets/sotickets.module#SoticketsPageModule' },
   { path: 'layout', loadChildren: './layout/layout.module#LayoutPageModule' },
+  { path: 'calendario', loadChildren: './calendario/calendario.module#CalendarioPageModule' },
 ];
 
 @NgModule({
