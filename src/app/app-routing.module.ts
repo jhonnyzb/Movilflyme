@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'sotickets', loadChildren: () => import ('./sotickets/sotickets.module').then(m => m.SoticketsPageModule)},
   { path: 'layout', loadChildren: () => import ('./layout/layout.module').then(m => m.LayoutPageModule)},
   { path: 'calendario', loadChildren: () => import ('./calendario/calendario.module').then(m => m.CalendarioPageModule)},
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' }
+  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
+  { path: 'form-ticket-personal', loadChildren: './form-ticket-personal/form-ticket-personal.module#FormTicketPersonalPageModule' }
  
 ];
 

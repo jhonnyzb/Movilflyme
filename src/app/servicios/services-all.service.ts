@@ -14,38 +14,46 @@ export class ServicesAllService {
 
 
 
-  public login (login:any){
+  public login(login: any) {
     return this.http.post(this.baseUrl + '/auth/curl', login);
+
+  }
+
+
+  public register(registro: any) {
+    return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
+    });
+
+
+
+  }
+  public listPasaPorAprobar() {
+    let sesioid = {
+      sessionId:localStorage.getItem("sessionId")
+    }
+      return this.http.post(this.baseUrl + '/users/curl/consultar-por-aprobacion', sesioid, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
+    });
     
   }
 
-
-  public register(registro: any){
-    return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-     headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
-    });
-    //return this.http.get('https://jsonplaceholder.typicode.com/posts');
-  
-  
-  }
-
-
-  public ticketLaboral(fecha:any){
+  public ticketLaboral(fecha: any) {
     //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
+    //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
     //});
     return this.http.post('jgjgk', fecha);
   }
 
-  public ticketPersonal(dataTicket:any){
+  public ticketPersonal(dataTicket: any) {
     //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
+    //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
     //});
     return this.http.post('fhg', dataTicket);
   }
 
 
-  getItems(){
+  getItems() {
 
     return this.Items = [
       {
@@ -83,7 +91,7 @@ export class ServicesAllService {
       {
         numero: 4,
         descripcion: 'cuatro',
-      },{
+      }, {
         numero: 4,
         descripcion: 'cuatro',
       },
@@ -94,169 +102,182 @@ export class ServicesAllService {
     ]
   }
 
-opcionHomeTicket(){
-  return this.opcion =[
-    {
-      id: 1,
-      opcion: 'Anticipo',
-      value: 'anticipo',
-      opcionesInternas: [
-        {
-          opcion_: 'Por aprobar',
-          value_: 'poraprobar',
-        },
-        {
-          opcion_: 'Por desembolsar',
-          value_: 'pordesembolsar',
-        },
-        {
-          opcion_: 'Por legalizar',
-          value_: 'porlegalizar',
-        },
-      ]
-     
-    },
-    {
-      id: 2,
-      opcion: 'Pasaje aereo',
-      value: 'pasajeAereo',
-      opcionesInternas: [
-        {
-          opcion_: 'Por aprobar',
-          value_: 'poraprobar',
-        },
-        {
-          opcion_: 'Aprobado',
-          value_: 'aprobado',
-        },
-        {
-          opcion_: 'Anulados',
-          value_: 'anulados',
-        },
-        {
-          opcion_: 'Rechazados',
-          value_: 'rechazados',
-        },
-      ]
-    },
-    {
-      id: 3,
-      opcion: 'Reembolso',
-      value : 'reembolso',
-      opcionesInternas: [
-        {
-          opcion_: 'Borrador',
-          value_: 'borrador',
-        },
-        {
-          opcion_: 'Por aprobar',
-          value_: 'poraprobar',
-        },
-        {
-          opcion_: 'Legalizados x aprobar',
-          value_: 'legalizadosxaprobar',
-        },
-        {
-          opcion_: 'Anulados',
-          value_: 'anulados',
-        },
-        {
-          opcion_: 'Rechazados',
-          value_: 'Rechazados',
-        },
-      ]
-    },
-    {
-      id: 4,
-      opcion: 'Aereo personal',
-      value: 'aereoPersonal',
-      opcionesInternas: [
-        {
-          opcion_: 'Solicitados',
-          value_: 'solicitados',
-        },
-        {
-          opcion_: 'Cotizados',
-          value_: 'cotizados'
-        },
-        {
-          opcion_: 'Aceptados',
-          value_: 'aceptados',
-        },
-        {
-          opcion_: 'Anulados',
-          value_: 'anulados',
-        },
-        {
-          opcion_: 'Rechazados',
-          value_: 'rechazados',
-        },
-      ]
-    }
-  ]
-}
+  opcionHomeTicket() {
+    return this.opcion = [
+      {
+        id: 1,
+        opcion: 'Anticipo',
+        value: 'anticipo',
+        opcionesInternas: [
+          {
+            opcion_: 'Por aprobar',
+            value_: 'poraprobar',
+          },
+          {
+            opcion_: 'Por desembolsar',
+            value_: 'pordesembolsar',
+          },
+          {
+            opcion_: 'Por legalizar',
+            value_: 'porlegalizar',
+          },
+        ]
+
+      },
+      {
+        id: 2,
+        opcion: 'Pasaje aereo',
+        value: 'pasajeAereo',
+        opcionesInternas: [
+          {
+            opcion_: 'Por aprobar',
+            value_: 'poraprobar',
+          },
+          {
+            opcion_: 'Aprobado',
+            value_: 'aprobado',
+          },
+          {
+            opcion_: 'Anulados',
+            value_: 'anulados',
+          },
+          {
+            opcion_: 'Rechazados',
+            value_: 'rechazados',
+          },
+        ]
+      },
+      {
+        id: 3,
+        opcion: 'Reembolso',
+        value: 'reembolso',
+        opcionesInternas: [
+          {
+            opcion_: 'Borrador',
+            value_: 'borrador',
+          },
+          {
+            opcion_: 'Por aprobar',
+            value_: 'poraprobar',
+          },
+          {
+            opcion_: 'Legalizados x aprobar',
+            value_: 'legalizadosxaprobar',
+          },
+          {
+            opcion_: 'Anulados',
+            value_: 'anulados',
+          },
+          {
+            opcion_: 'Rechazados',
+            value_: 'Rechazados',
+          },
+        ]
+      },
+      {
+        id: 4,
+        opcion: 'Aereo personal',
+        value: 'aereoPersonal',
+        opcionesInternas: [
+          {
+            opcion_: 'Solicitados',
+            value_: 'solicitados',
+          },
+          {
+            opcion_: 'Cotizados',
+            value_: 'cotizados'
+          },
+          {
+            opcion_: 'Aceptados',
+            value_: 'aceptados',
+          },
+          {
+            opcion_: 'Anulados',
+            value_: 'anulados',
+          },
+          {
+            opcion_: 'Rechazados',
+            value_: 'rechazados',
+          },
+        ]
+      }
+    ]
+  }
 
 
-getDetailsPasajes(){
+  getDetailsPasajes() {
 
-  return this.details = [
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-    {
-      origen: 'Bogota',
-      destino: 'Cali',
-      fecha: '10-12-2018'
-    },
-  ]
-}
+    return this.details = [
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+    ]
+  }
+
+
+  getDetailsPasajesC() {
+
+    return this.details = [
+      {
+        origen: 'Bogota',
+        destino: 'Cali',
+        fecha: '10-12-2018'
+      },
+
+    ]
+  }
 
 
 

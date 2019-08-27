@@ -27,14 +27,14 @@ export class LoginPage implements OnInit, OnDestroy {
     this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
         console.log(res)
-        //localStorage.setItem('token',res.access_token)
+        localStorage.setItem('token',res.access_token)
         localStorage.setItem('sessionId',res.sessionId)
         this.router.navigate(['/layout'])
       },
       (err)=>{
         this.presentAlert();
         console.log(err)
-        //this.router.navigate(['/layout'])
+        this.router.navigate(['/layout'])
       }
     )
 

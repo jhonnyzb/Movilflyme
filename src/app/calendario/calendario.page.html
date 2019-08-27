@@ -3,8 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button text="Volver" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-label>Calendario</ion-label>
-    <ion-title></ion-title>
+    <ion-title>Calendario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,13 +24,13 @@
     </ion-segment-button>
   </ion-segment>
 </ion-toolbar>
-<ion-content padding >
+<ion-content padding>
   <div *ngIf="c2019" class="animated fadeInDown">
-      <ion-img src="../../assets/img/calendario2019.png" >
-        </ion-img>
+    <ion-img src="../../assets/img/calendario2019.png">
+    </ion-img>
   </div>
-  <div  *ngIf="c2020" class="animated fadeInDown" >
-      <ion-img src="../../assets/img/calendario2020.jpg" >
-        </ion-img>
+  <div *ngIf="c2020" class="animated fadeInDown">
+    <ion-img src="../../assets/img/calendario2020.jpg">
+    </ion-img>
   </div>
 </ion-content>

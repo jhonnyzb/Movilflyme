@@ -11,6 +11,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
   details: any;
   opcion: string = '';
+  pageActual: number = 1;
   constructor(public navParams:NavParams, private servicio: ServicesAllService) { 
 
     this.opcion = this.navParams.get('idopcion');
@@ -25,6 +26,20 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
   getDetails(){
     if(this.opcion === 'solicitados'){
       this.details = this.servicio.getDetailsPasajes();
+    }
+    if(this.opcion === 'cotizados'){
+      this.details = this.servicio.getDetailsPasajesC();
+    }
+    if(this.opcion === 'poraprobar'){
+      this.servicio.listPasaPorAprobar().subscribe(
+        (res:any)=>{
+          console.log(res.datos.dat)
+          this.details = res.datos.dat
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
     }
   }
 

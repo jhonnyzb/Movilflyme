@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { PopitemsComponent } from './popitems/popitems.component';
 import { PopDetailPasajesPersonalComponent } from './pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
+import {NgxPaginationModule} from 'ngx-pagination'
 
 
 
@@ -14,7 +15,8 @@ import { PopDetailPasajesPersonalComponent } from './pop-detail-pasajes-personal
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    NgxPaginationModule
   ]
 })
 export class ComponentesModule { }

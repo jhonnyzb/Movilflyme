@@ -21,20 +21,23 @@
       <img src="../../assets/img/edi_5.webp " alt="">
     </ion-slide>
   </ion-slides>
-  <div text-center >
-    <h4>Que deseas realizar...</h4>
-  </div>
+  <ion-item>
+    <ion-label text-center>Tipo de Pasaje</ion-label>
+  </ion-item>
+
   <ion-toolbar>
-    <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" mode="md">
-      <ion-segment-button value="personal">
-        <ion-icon name="body"></ion-icon>
-        <ion-label>Pasaje personal</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="laboral">
-          <ion-icon name="build"></ion-icon>
-        <ion-label>Pasaje laboral</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+    <ion-buttons slot="start" margin-start>
+      <ion-button color="footer" fill="outline" shape="round" routerLink="/form-ticket-personal">
+        <ion-icon name="person" slot="start"> </ion-icon>
+        Personal
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" margin-end>
+      <ion-button color="footer" fill="outline" shape="round">
+          <ion-icon name="construct" slot="start"> </ion-icon>
+        Laboral
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <div padding>
     <ion-item>
@@ -47,12 +50,12 @@
     </ion-item>
   </div>
   <div padding>
-    <ion-item> 
+    <ion-item>
       <ion-label>Estados</ion-label>
-      <ion-select  interface="popover" (ionChange)="cambioEstados($event)" >
-        <ion-select-option *ngFor="let opcion of opciones_"  value="{{opcion. value_}}">{{opcion.opcion_}}</ion-select-option>
+      <ion-select interface="popover" (ionChange)="cambioEstados($event)">
+        <ion-select-option *ngFor="let opcion of opciones_" value="{{opcion. value_}}">{{opcion.opcion_}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </div>
-
 </ion-content>
