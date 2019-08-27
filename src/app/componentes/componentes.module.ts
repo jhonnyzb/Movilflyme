@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 import { PopitemsComponent } from './popitems/popitems.component';
+import { PopDetailPasajesPersonalComponent } from './pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
 
 
 
 @NgModule({
-  declarations: [PopitemsComponent],
+  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent ],
   exports:[
-    PopitemsComponent
+    PopitemsComponent,PopDetailPasajesPersonalComponent
   ],
   imports: [
     CommonModule,

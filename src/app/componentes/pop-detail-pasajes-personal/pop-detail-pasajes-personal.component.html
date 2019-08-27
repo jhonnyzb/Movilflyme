@@ -1,0 +1,21 @@
+
+<ion-content>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Origen</th>
+        <th scope="col">Destino</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Detalles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr text-center *ngFor="let detail of details">
+        <td>{{detail.origen}}</td>
+        <td>{{detail.destino}}</td>
+        <td>{{detail.fecha}}</td>
+        <td><ion-icon color="primary" name="document"></ion-icon></td>
+      </tr>
+    </tbody>
+  </table>
+  </ion-content>

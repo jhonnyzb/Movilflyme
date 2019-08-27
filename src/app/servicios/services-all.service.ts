@@ -5,26 +5,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ServicesAllService {
-
+  details: any;
   Items: any;
   opcion: any;
-  baseUrl: string = 'http://10.133.10.175'
+  baseUrl: string = 'http://10.133.10.219'
 
   constructor(private http: HttpClient) { }
 
 
 
   public login (login:any){
-    //return this.http.post(this.baseUrl + '/auth/login', login);
-    return this.http.get('https://jsonplaceholder.typicode.com/users')
+    return this.http.post(this.baseUrl + '/auth/curl', login);
+    
   }
 
 
   public register(registro: any){
-    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
-    //});
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+    return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
+     headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
+    });
+    //return this.http.get('https://jsonplaceholder.typicode.com/posts');
   
   
   }
@@ -119,18 +119,142 @@ opcionHomeTicket(){
     {
       id: 2,
       opcion: 'Pasaje aereo',
-      value: 'pasajeAereo'
+      value: 'pasajeAereo',
+      opcionesInternas: [
+        {
+          opcion_: 'Por aprobar',
+          value_: 'poraprobar',
+        },
+        {
+          opcion_: 'Aprobado',
+          value_: 'aprobado',
+        },
+        {
+          opcion_: 'Anulados',
+          value_: 'anulados',
+        },
+        {
+          opcion_: 'Rechazados',
+          value_: 'rechazados',
+        },
+      ]
     },
     {
       id: 3,
       opcion: 'Reembolso',
-      value : 'reembolso'
+      value : 'reembolso',
+      opcionesInternas: [
+        {
+          opcion_: 'Borrador',
+          value_: 'borrador',
+        },
+        {
+          opcion_: 'Por aprobar',
+          value_: 'poraprobar',
+        },
+        {
+          opcion_: 'Legalizados x aprobar',
+          value_: 'legalizadosxaprobar',
+        },
+        {
+          opcion_: 'Anulados',
+          value_: 'anulados',
+        },
+        {
+          opcion_: 'Rechazados',
+          value_: 'Rechazados',
+        },
+      ]
     },
     {
       id: 4,
       opcion: 'Aereo personal',
-      value: 'aereoPersonal'
+      value: 'aereoPersonal',
+      opcionesInternas: [
+        {
+          opcion_: 'Solicitados',
+          value_: 'solicitados',
+        },
+        {
+          opcion_: 'Cotizados',
+          value_: 'cotizados'
+        },
+        {
+          opcion_: 'Aceptados',
+          value_: 'aceptados',
+        },
+        {
+          opcion_: 'Anulados',
+          value_: 'anulados',
+        },
+        {
+          opcion_: 'Rechazados',
+          value_: 'rechazados',
+        },
+      ]
     }
+  ]
+}
+
+
+getDetailsPasajes(){
+
+  return this.details = [
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
+    {
+      origen: 'Bogota',
+      destino: 'Cali',
+      fecha: '10-12-2018'
+    },
   ]
 }
 

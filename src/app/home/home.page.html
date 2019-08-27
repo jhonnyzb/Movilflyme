@@ -22,7 +22,7 @@
     </ion-slide>
   </ion-slides>
   <div text-center >
-    <h4>Que deseas hacer...</h4>
+    <h4>Que deseas realizar...</h4>
   </div>
   <ion-toolbar>
     <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" mode="md">
@@ -49,8 +49,8 @@
   <div padding>
     <ion-item> 
       <ion-label>Estados</ion-label>
-      <ion-select  interface="popover">
-        <ion-select-option *ngFor="let opcion of opciones_" value="{{opcion. value_}}">{{opcion.opcion_}}</ion-select-option>
+      <ion-select  interface="popover" (ionChange)="cambioEstados($event)" >
+        <ion-select-option *ngFor="let opcion of opciones_"  value="{{opcion. value_}}">{{opcion.opcion_}}</ion-select-option>
       </ion-select>
     </ion-item>
   </div>

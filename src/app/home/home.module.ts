@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
+import { PopDetailPasajesPersonalComponent } from '../componentes/pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
+import { ComponentesModule } from '../componentes/componentes.module';
 
 const routes: Routes = [
   {
@@ -15,11 +17,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents:[
+    PopDetailPasajesPersonalComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentesModule
   ],
   declarations: [HomePage]
 })

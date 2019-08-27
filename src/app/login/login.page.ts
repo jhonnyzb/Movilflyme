@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ServicesAllService } from '../servicios/services-all.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
 
   Usuario = {
     email: '',
     password: ''
   }
+  suscriptionLogin: Subscription;
 
   constructor( private router: Router,private slogin: ServicesAllService, public alert: AlertController) { }
 
@@ -22,14 +24,17 @@ export class LoginPage implements OnInit {
 
   LoginForm(){
 
-    this.slogin.login(this.Usuario).subscribe(
+    this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
-        localStorage.setItem('token',res.access_token)
+        console.log(res)
+        //localStorage.setItem('token',res.access_token)
+        localStorage.setItem('sessionId',res.sessionId)
         this.router.navigate(['/layout'])
       },
       (err)=>{
         this.presentAlert();
-        this.router.navigate(['/layout'])
+        console.log(err)
+        //this.router.navigate(['/layout'])
       }
     )
 
@@ -46,5 +51,10 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+
+  ngOnDestroy(){
+    //this.suscriptionLogin.unsubscribe();
+
+  }
 
 }
