@@ -99,7 +99,21 @@ opcionHomeTicket(){
     {
       id: 1,
       opcion: 'Anticipo',
-      value: 'anticipo'
+      value: 'anticipo',
+      opcionesInternas: [
+        {
+          opcion_: 'Por aprobar',
+          value_: 'poraprobar',
+        },
+        {
+          opcion_: 'Por desembolsar',
+          value_: 'pordesembolsar',
+        },
+        {
+          opcion_: 'Por legalizar',
+          value_: 'porlegalizar',
+        },
+      ]
      
     },
     {

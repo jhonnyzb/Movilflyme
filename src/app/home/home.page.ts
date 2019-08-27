@@ -9,6 +9,7 @@ import { ServicesAllService } from '../servicios/services-all.service';
 export class HomePage implements OnInit {
 
   opciones: any;
+  opciones_:any;
   
   constructor(private servicio: ServicesAllService) { }
 
@@ -22,7 +23,13 @@ getOpcion(){
 
 }
 
-  cambio(e){
-    console.log('si',e)
+  cambio(event:any){
+
+    if (event.detail.value ==='anticipo') {
+      var index = this.opciones.findIndex(obj => obj.value ==='anticipo');
+      this.opciones_=this.opciones[index].opcionesInternas;
+      console.log(this.opciones_)
+    }
+   
   }
 }
