@@ -1,22 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { PopitemsComponent } from './popitems/popitems.component';
 import { PopDetailPasajesPersonalComponent } from './pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
-import {NgxPaginationModule} from 'ngx-pagination'
+import { NgxPaginationModule} from 'ngx-pagination'
+import { PopCiudadesComponent } from './pop-ciudades/pop-ciudades.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { PopAddPasejerosPersonalComponent } from './pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
 
 
 
 @NgModule({
-  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent ],
+  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent ],
   exports:[
-    PopitemsComponent,PopDetailPasajesPersonalComponent
+    PopitemsComponent,PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    PipesModule,
+    FormsModule
   ]
 })
 export class ComponentesModule { }

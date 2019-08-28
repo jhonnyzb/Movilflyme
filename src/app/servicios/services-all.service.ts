@@ -30,12 +30,12 @@ export class ServicesAllService {
   }
   public listPasaPorAprobar() {
     let sesioid = {
-      sessionId:localStorage.getItem("sessionId")
+      sessionId: localStorage.getItem("sessionId")
     }
-      return this.http.post(this.baseUrl + '/users/curl/consultar-por-aprobacion', sesioid, {
+    return this.http.post(this.baseUrl + '/users/curl/consultar-por-aprobacion', sesioid, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
     });
-    
+
   }
 
   public ticketLaboral(fecha: any) {
@@ -50,6 +50,10 @@ export class ServicesAllService {
     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
     //});
     return this.http.post('fhg', dataTicket);
+  }
+
+  getCiudades() {
+    return this.http.get('https://restcountries.eu/rest/v2/all');
   }
 
 

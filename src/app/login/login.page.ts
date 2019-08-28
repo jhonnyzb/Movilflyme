@@ -23,7 +23,7 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   LoginForm(){
-
+    this.router.navigate(['/layout'])
     this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
         console.log(res)

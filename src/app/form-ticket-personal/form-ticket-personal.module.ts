@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FormTicketPersonalPage } from './form-ticket-personal.page';
+import { PopCiudadesComponent } from '../componentes/pop-ciudades/pop-ciudades.component';
+import { ComponentesModule } from '../componentes/componentes.module';
+import { PopAddPasejerosPersonalComponent } from '../componentes/pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
 
 const routes: Routes = [
   {
@@ -15,11 +18,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents:[
+    PopCiudadesComponent,
+    PopAddPasejerosPersonalComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentesModule
   ],
   declarations: [FormTicketPersonalPage]
 })

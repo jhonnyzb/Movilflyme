@@ -15,12 +15,12 @@
 <ion-content padding>
 
   <ion-item text-center>
-    <ion-label>Datos Basicos</ion-label>
+    <ion-label color="primary">Datos Basicos solicitante</ion-label>
   </ion-item>
   <ion-row>
     <ion-col size="4">
       <ion-label class="ion-label_">Fecha solicitud</ion-label>
-      <div class="div1 text-center">2012-12-3</div>
+      <div class="div1 text-center">{{fecha | date:'yyyy-MM-dd'}}</div>
     </ion-col>
     <ion-col size="4">
         <ion-label class="ion-label_">Estado</ion-label>
@@ -31,7 +31,90 @@
         <div class="div1 text-center">Jorge Sanchez</div>
     </ion-col>
   </ion-row>
-
+  <ion-row>
+    <ion-col size="4">
+      <ion-label class="ion-label_">Cedula</ion-label>
+      <div class="div1 text-center">3245678</div>
+    </ion-col>
+    <ion-col size="4">
+        <ion-label class="ion-label_">Centro de costo</ion-label>
+        <div class="div1 text-center">Articulación</div>
+    </ion-col>
+    <ion-col size="4">
+        <ion-label class="ion-label_">SubCen. Costo</ion-label>
+        <div class="div1 text-center">COL_BO_TEC</div>
+    </ion-col>
+  </ion-row>
+  <ion-item text-center>
+    <ion-label  color="primary">Detalles solicitud</ion-label>
+  </ion-item>
+  <ion-row>
+    <ion-col size="6">
+      <ion-label class="ion-label_">Nac/Int </ion-label>
+      <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioTipo($event)">
+        <ion-select-option value="nacional" >Nacional</ion-select-option>
+        <ion-select-option value="internacional" >Internacional</ion-select-option>
+      </ion-select>
+    </ion-col>
+    <ion-col size="6">
+        <ion-label class="ion-label_">Trayecto</ion-label>
+        <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioTrayecto($event)">
+          <ion-select-option value="idayvuelta" >Ida y Vuelta</ion-select-option>
+          <ion-select-option value="soloida" >Solo Ida</ion-select-option>
+        </ion-select>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6" text-center >
+      <ion-label class="ion-label_">Ciudad origen</ion-label>
+      <ion-button shape="round" fill="outline" color="footer" (click)="presentPopoverOrigen()">{{textBotonCiudadO}}</ion-button>
+    </ion-col>
+    <ion-col size="6" text-center>
+      <ion-label class="ion-label_">Ciudad destino</ion-label>
+      <ion-button shape="round" fill="outline" color="footer"  (click)="presentPopoverDestino()">{{textBotonCiudadR}}</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6" text-center >
+      <ion-item>
+        <ion-label position="floating">Fecha Ida</ion-label>
+        <ion-datetime [pickerOptions]="optionspickers" 
+                      min="2019-08-29" 
+                      max="2030-12-09" 
+                      [ngModel]="fecha_actual.toISOString()" 
+                      monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic" >
+        </ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6" text-center>
+        <ion-item>
+          <ion-label position="floating">Hora Ida</ion-label>
+          <ion-datetime [pickerOptions]="optionspickersH" displayFormat="h:mm A" value="00:00"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="banderaTrayecto">
+    <ion-col size="6" text-center >
+      <ion-item>
+        <ion-label position="floating">Fecha Regreso</ion-label>
+        <ion-datetime [pickerOptions]="optionspickersFr" 
+                      min="2019-08-29" 
+                      max="2030-12-09" 
+                      [ngModel]="fecha_actual.toISOString()" 
+                      monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic" >
+        </ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6" text-center>
+        <ion-item>
+          <ion-label position="floating">Hora Regreso</ion-label>
+          <ion-datetime [pickerOptions]="optionspickersHr" displayFormat="h:mm A" value="00:00"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+ 
+  <ion-button color=footer expand="block" (click)="presentPopoverAddpasajero()">Agregar Pasajero</ion-button>
+  
 </ion-content>
 
 <ion-footer>
