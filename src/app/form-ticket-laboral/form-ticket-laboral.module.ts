@@ -5,21 +5,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePage } from './home.page';
-import { PopDetailPasajesPersonalComponent } from '../componentes/pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
-import { ComponentesModule } from '../componentes/componentes.module';
+import { FormTicketLaboralPage } from './form-ticket-laboral.page';
 import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
+import { ComponentesModule } from '../componentes/componentes.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: FormTicketLaboralPage
   }
 ];
 
 @NgModule({
   entryComponents:[
-    PopDetailPasajesPersonalComponent, TucuentaComponent
+    TucuentaComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +27,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentesModule
   ],
-  declarations: [HomePage]
+  declarations: [FormTicketLaboralPage]
 })
-export class HomePageModule {}
+export class FormTicketLaboralPageModule {}

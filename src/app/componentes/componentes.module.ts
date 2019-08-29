@@ -9,13 +9,14 @@ import { NgxPaginationModule} from 'ngx-pagination'
 import { PopCiudadesComponent } from './pop-ciudades/pop-ciudades.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { PopAddPasejerosPersonalComponent } from './pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
+import { TucuentaComponent } from './tucuenta/tucuenta.component';
 
 
 
 @NgModule({
-  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent ],
+  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent, TucuentaComponent ],
   exports:[
-    PopitemsComponent,PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent
+    PopitemsComponent,PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent, TucuentaComponent
   ],
   imports: [
     CommonModule,

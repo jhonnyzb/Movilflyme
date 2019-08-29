@@ -10,15 +10,18 @@
     </thead>
     <tbody>
       <tr text-center *ngFor="let detail of details | paginate: { itemsPerPage: 4, currentPage: pageActual } ">
-        <td>{{detail.ciudad_origen | slice:0:8}} </td>
+        <td>{{detail.ciudad_origen  | slice:0:8}} </td>
         <td>{{detail.ciudad_destino | slice:0:8}}</td>
         <td>{{detail.fecha_solicitud}}</td>
         <td>
           <ion-icon color="primary" name="eye"></ion-icon>
         </td>
       </tr>
-        <tr *ngIf="!details">
-          <td>no hay datos</td>
+        <tr *ngIf="!details" text-center>
+              <div>
+                <img src="../../../assets/icon/loading.gif" alt="">
+              </div>
+                
         </tr>
     </tbody>
   </table>

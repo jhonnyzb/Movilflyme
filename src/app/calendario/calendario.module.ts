@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CalendarioPage } from './calendario.page';
+import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
+import { ComponentesModule } from '../componentes/componentes.module';
 
 const routes: Routes = [
   {
@@ -15,11 +17,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents:[
+  TucuentaComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentesModule
   ],
   declarations: [CalendarioPage]
 })

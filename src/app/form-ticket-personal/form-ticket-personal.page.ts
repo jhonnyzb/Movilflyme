@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, AlertController } from '@ionic/angular';
 import { PopCiudadesComponent } from '../componentes/pop-ciudades/pop-ciudades.component';
 import { PopAddPasejerosPersonalComponent } from '../componentes/pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
+import { ServicesAllService } from '../servicios/services-all.service';
+import { Router } from '@angular/router';
+import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 
 @Component({
   selector: 'app-form-ticket-personal',
@@ -15,7 +18,7 @@ export class FormTicketPersonalPage implements OnInit {
   optionspickersH;
   optionspickersFr;
   optionspickersHr;
-  fecha: Date = new Date();
+  //fecha: Date = new Date();
   ciudadOrigen: string = '';
   ciudadDestino: string = '';
   tipoVuelo: string = '';
@@ -24,9 +27,17 @@ export class FormTicketPersonalPage implements OnInit {
   textBotonCiudadR = 'Click para elegir';
   banderaTrayecto: boolean = true;
   dataPassenger: any;
+  mesparcial: string = '';
+  diaparcial: string = '';
+  horaparcial: string = '';
+  fecha_ida: string ='';
+  fecha_regreso: string = '';
+  hora_ida: string = '';
+  hora_regreso: string = '';
+  banderapasaporte: boolean = false;
  
 
-  constructor(public popoverController: PopoverController) { }
+  constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController,private router: Router) { }
 
   ngOnInit() {
     //fecha ida
@@ -34,7 +45,20 @@ export class FormTicketPersonalPage implements OnInit {
       buttons: [{
         text: 'Guardar',
         handler: (event) => {
-          console.log(event)
+          let mest = String(event.month.value);
+          let diat = String(event.day.value);
+          if (mest.length === 1) {
+            this.mesparcial = '0' + mest;
+          }else{
+            this.mesparcial = event.month.value;
+          }
+          if (diat.length === 1) {
+            this.diaparcial = '0' + diat;
+          }else{
+            this.diaparcial = event.day.value;
+          }
+          this.fecha_ida = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+          console.log(this.fecha_ida)
         }
       }, {
         text: 'Cancelar',
@@ -49,7 +73,14 @@ export class FormTicketPersonalPage implements OnInit {
       buttons: [{
         text: 'Guardar',
         handler: (event) => {
-          console.log(event)
+          let hora = event.hour.text;
+          if (hora.length === 1) {
+            this.horaparcial = '0' + hora;
+          }else{
+            this.horaparcial = event.hour.text;
+          }
+          this.hora_ida = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
+          console.log(this.hora_ida)
         }
       }, {
         text: 'Cancelar',
@@ -65,7 +96,20 @@ export class FormTicketPersonalPage implements OnInit {
       buttons: [{
         text: 'Guardar',
         handler: (event) => {
-          console.log(event)
+          let mest = String(event.month.value);
+          let diat = String(event.day.value);
+          if (mest.length === 1) {
+            this.mesparcial = '0' + mest;
+          }else{
+            this.mesparcial = event.month.value;
+          }
+          if (diat.length === 1) {
+            this.diaparcial = '0' + diat;
+          }else{
+            this.diaparcial = event.day.value;
+          }
+          this.fecha_regreso = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+          console.log(this.fecha_regreso)
         }
       }, {
         text: 'Cancelar',
@@ -80,7 +124,14 @@ export class FormTicketPersonalPage implements OnInit {
       buttons: [{
         text: 'Guardar',
         handler: (event) => {
-          console.log(event)
+          let hora = event.hour.text;
+          if (hora.length === 1) {
+            this.horaparcial = '0' + hora;
+          }else{
+            this.horaparcial = event.hour.text;
+          }
+          this.hora_regreso = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
+          console.log(this.hora_regreso)
         }
       }, {
         text: 'Cancelar',
@@ -93,16 +144,21 @@ export class FormTicketPersonalPage implements OnInit {
 
 
   cambioTipo(event) {
+    if (event.detail.value === 'internacional'){
+        this.banderapasaporte = true;
+    }else{
+      this.banderapasaporte = false;
+    }
     this.tipoVuelo = event.detail.value;
 
   }
 
   cambioTrayecto(event) {
-    if (event.detail.value === 'soloida') {
+    if (event.detail.value === 'solo_ida') {
       this.banderaTrayecto = false;
       this.trayecto = event.detail.value
     }
-    if (event.detail.value === 'idayvuelta') {
+    if (event.detail.value === 'ida_vuelta') {
       this.banderaTrayecto = true;
       this.trayecto = event.detail.value
     }
@@ -145,7 +201,7 @@ export class FormTicketPersonalPage implements OnInit {
 
     const popover = await this.popoverController.create({
       component: PopAddPasejerosPersonalComponent,
-      //componentProps: { idopcion: idvalue },
+      componentProps: { RequiredPasaporte: this.banderapasaporte },
       cssClass: 'popover_classaddPasajeros',
       //backdropDismiss: false,
       translucent: true
@@ -154,8 +210,90 @@ export class FormTicketPersonalPage implements OnInit {
     //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
     this.dataPassenger = data;
-    console.log(this.dataPassenger.pasajero.nombres)
+    //console.log(this.dataPassenger.pasajero.nombres)
   }
 
+
+
+  sendSolicitud(){
+    let solicitud = {
+      sessionId:localStorage.getItem("sessionId"),
+      fechaSolicitud: '2019-08-29',
+      tipoVuelo: this.tipoVuelo,
+      trayectoVuelo: this.trayecto,
+      fechaIda: this.fecha_ida,
+      fechaVuelta:this.fecha_regreso,
+      ciudad_origen:this.ciudadOrigen,
+      ciudadDestino: this.ciudadDestino,
+      horaSalida: this.hora_ida,
+      tipoDocumento: this.dataPassenger.pasajero.tipoDocumento,
+      horaRegreso: this.hora_regreso,
+      documentoPasajero: String (this.dataPassenger.pasajero.documento),
+      nombres:this.dataPassenger.pasajero.nombres,
+      apellidos:this.dataPassenger.pasajero.apellidos,
+      fechaNacimiento: this.dataPassenger.pasajero.fecha_nacimiento,
+      pasaporte: this.dataPassenger.pasajero.pasaporte,
+      fechaVencimientoPasaporte: this.dataPassenger.pasajero.fechavencimiento
+    }
+    console.log(solicitud);
+
+    this.servicio.solicitudPasajepersonal(solicitud).subscribe(
+      (res:any)=>{
+        if (res.codigoRespuesta == 0) {
+          let mensaje = 'enviada con exito'
+          this.presentAlert(mensaje)
+          this.router.navigate(['/layout'])
+        } 
+        if (res.codigoRespuesta == 1001) {
+          let mensaje = 'error al crearla'
+          this.presentAlert(mensaje)
+          this.router.navigate(['/layout'])
+        }         
+      },
+      (err)=>{
+        this.presentAlertErr
+        console.log('error',err)
+      }
+    )
+    //console.log(solicitud);
+  }
+
+
+  async presentAlert(mensaje) {
+    const alert = await this.alert.create({
+      subHeader: 'Solicitud',
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
  
+
+  async presentAlertErr() {
+    const alert = await this.alert.create({
+      header: 'Error',
+      subHeader: 'En la transaccion intente de nuevo',
+      message: 'Por favor ingrese nuevamente los datos',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+
+  async presentPopoverTuCuenta(evento) {
+    const popover = await this.popoverController.create({
+      component: TucuentaComponent,
+      event: evento,
+      mode:'ios',
+      //componentProps: { idopcion: idvalue },
+      //cssClass: 'popover_class',
+      //backdropDismiss: false,
+      translucent: true
+    });
+    await popover.present();
+    //const { data } = await popover.onDidDismiss();
+    const { data } = await popover.onWillDismiss();
+
+
+  }
 }

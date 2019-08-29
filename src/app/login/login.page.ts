@@ -23,18 +23,23 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   LoginForm(){
-    this.router.navigate(['/layout'])
     this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
         console.log(res)
-        localStorage.setItem('token',res.access_token)
-        localStorage.setItem('sessionId',res.sessionId)
-        this.router.navigate(['/layout'])
+        if (res.codigoRespuesta == 0){
+          localStorage.setItem('token',res.access_token)
+          localStorage.setItem('sessionId',res.sessionId)
+          this.router.navigate(['/layout'])
+        }
+        if(res.codigoRespuesta == 1001){
+          this.presentAlert();
+        }
+        
+       
       },
       (err)=>{
-        this.presentAlert();
         console.log(err)
-        this.router.navigate(['/layout'])
+    
       }
     )
 

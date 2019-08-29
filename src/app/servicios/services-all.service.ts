@@ -8,7 +8,7 @@ export class ServicesAllService {
   details: any;
   Items: any;
   opcion: any;
-  baseUrl: string = 'http://10.133.10.219'
+  baseUrl: string = 'http://10.133.10.221'
 
   constructor(private http: HttpClient) { }
 
@@ -28,15 +28,25 @@ export class ServicesAllService {
 
 
   }
-  public listPasaPorAprobar() {
+  public listPasaPorAprobar(tipoRegistro:any, estado:any) {
     let sesioid = {
-      sessionId: localStorage.getItem("sessionId")
+      sessionId: localStorage.getItem("sessionId"),
+      estado: estado,
+      tipoRegistro: tipoRegistro
     }
-    return this.http.post(this.baseUrl + '/users/curl/consultar-por-aprobacion', sesioid, {
+    console.log(sesioid)
+    return this.http.post(this.baseUrl + '/users/curl/consultar', sesioid, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
     });
 
   }
+
+public solicitudPasajepersonal(solicitud:any){
+  return this.http.post(this.baseUrl + '/users/curl/consumirform/personal', solicitud, {
+    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
+  });
+}
+
 
   public ticketLaboral(fecha: any) {
     //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
@@ -131,11 +141,11 @@ export class ServicesAllService {
       {
         id: 2,
         opcion: 'Pasaje aereo',
-        value: 'pasajeAereo',
+        value: 'pasaje_aereo',
         opcionesInternas: [
           {
             opcion_: 'Por aprobar',
-            value_: 'poraprobar',
+            value_: 'solicitado',
           },
           {
             opcion_: 'Aprobado',
@@ -181,11 +191,11 @@ export class ServicesAllService {
       {
         id: 4,
         opcion: 'Aereo personal',
-        value: 'aereoPersonal',
+        value: 'pasaje_aereo_personal',
         opcionesInternas: [
           {
             opcion_: 'Solicitados',
-            value_: 'solicitados',
+            value_: 'solicitado',
           },
           {
             opcion_: 'Cotizados',

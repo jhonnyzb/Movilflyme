@@ -11,10 +11,15 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
   details: any;
   opcion: string = '';
+  opcion1: string = '';
+
   pageActual: number = 1;
   constructor(public navParams:NavParams, private servicio: ServicesAllService) { 
 
-    this.opcion = this.navParams.get('idopcion');
+    
+    this.opcion1 = this.navParams.get('estado');
+    this.opcion = this.navParams.get('tipoRegistro');
+
   }
 
   ngOnInit() {
@@ -24,16 +29,25 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
 
   getDetails(){
-    if(this.opcion === 'solicitados'){
+    if(this.opcion1 === 'solicitados'){
       this.details = this.servicio.getDetailsPasajes();
     }
-    if(this.opcion === 'cotizados'){
-      this.details = this.servicio.getDetailsPasajesC();
-    }
-    if(this.opcion === 'poraprobar'){
-      this.servicio.listPasaPorAprobar().subscribe(
+    if(this.opcion1 === 'pasaje_aereo'){
+      this.servicio.listPasaPorAprobar(this.opcion1, this.opcion).subscribe(
         (res:any)=>{
-          console.log(res.datos.dat)
+          console.log(res)
+          this.details = res.datos.dat
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
+    }
+    if(this.opcion1 === 'pasaje_aereo_personal'){
+      this.servicio.listPasaPorAprobar(this.opcion1, this.opcion).subscribe(
+
+        (res:any)=>{
+          console.log(res)
           this.details = res.datos.dat
         },
         (err)=>{

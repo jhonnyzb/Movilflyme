@@ -1,32 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 import { PopoverController } from '@ionic/angular';
+import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 
 @Component({
-  selector: 'app-calendario',
-  templateUrl: './calendario.page.html',
-  styleUrls: ['./calendario.page.scss'],
+  selector: 'app-form-ticket-laboral',
+  templateUrl: './form-ticket-laboral.page.html',
+  styleUrls: ['./form-ticket-laboral.page.scss'],
 })
-export class CalendarioPage implements OnInit {
+export class FormTicketLaboralPage implements OnInit {
 
-  c2019: boolean = true;
-  c2020: boolean = false;
+  fecha: Date = new Date();
 
   constructor(public popoverController: PopoverController) { }
 
   ngOnInit() {
-  }
-
-  segmentChanged(event){
-   if (event.detail.value === '2019') {
-     this.c2019 = true;
-     this.c2020  = false;
-   }
-   if (event.detail.value === '2020') {
-    this.c2019 = false;
-    this.c2020  = true;
-  }
-   
   }
 
 

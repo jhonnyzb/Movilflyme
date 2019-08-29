@@ -1,0 +1,124 @@
+<ion-header>
+    <ion-toolbar color="footer" text-center>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Pasaje Aereo Laboral</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="presentPopoverTuCuenta($event)">
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content padding> 
+      <ion-item text-center>
+          <ion-label color="primary">Datos Basicos solicitante</ion-label>
+        </ion-item>
+        <ion-row>
+          <ion-col size="4">
+            <ion-label class="ion-label_">Fecha solicitud</ion-label>
+            <div class="div1 text-center">{{fecha | date:'yyyy-MM-dd'}}</div>
+          </ion-col>
+          <ion-col size="4">
+              <ion-label class="ion-label_">Estado</ion-label>
+              <div class="div1 text-center">Solicitados</div>
+          </ion-col>
+          <ion-col size="4">
+              <ion-label class="ion-label_">Solicita</ion-label>
+              <div class="div1 text-center">Jorge Sanchez</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+              <ion-label class="ion-label_">Cedula</ion-label>
+              <div class="div1 text-center">3245678</div>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="ion-label_">Centro de costo</ion-label>
+                <div class="div1 text-center">Articulación</div>
+            </ion-col>
+            <ion-col size="4">
+                <ion-label class="ion-label_">SubCen. Costo</ion-label>
+                <div class="div1 text-center">COL_BO_TEC</div>
+            </ion-col>
+          </ion-row>
+          <ion-item text-center>
+              <ion-label  color="primary">Detalles solicitud</ion-label>
+          </ion-item>
+
+          <ion-row>
+              <ion-col size="6">
+                <ion-label class="ion-label_">Motivo </ion-label>
+                <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioTipo($event)">
+                  <ion-select-option  value="a_elementos" >A. de elementos</ion-select-option>
+                  <ion-select-option value="a_servicios" >A. de servicios</ion-select-option>
+                  <ion-select-option value="a_administrativos" >A. administrativos</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="6">
+                  <ion-label class="ion-label_">Solicita Anticipo</ion-label>
+                  <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioTrayecto($event)">
+                    <ion-select-option value="si" >Si</ion-select-option>
+                    <ion-select-option value="no" >No</ion-select-option>
+                  </ion-select>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col size="12">
+                    <ion-item>
+                        <ion-label class="ion-label_">Descripción:</ion-label>
+                        <ion-textarea rows="1" cols="10"></ion-textarea>
+                      </ion-item> 
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                  <ion-col size="6">
+                      <ion-item>
+                          <ion-label class="ion-label_" position="floating">Valor Anticipo</ion-label>
+                          <ion-input clearInput type="number" ></ion-input>
+                        </ion-item>
+                  </ion-col>
+                  <ion-col size="6">
+                      <ion-item>
+                          <ion-label class="ion-label_" position="floating">Valor en letras</ion-label>
+                          <ion-input clearInput></ion-input>
+                        </ion-item>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-item>
+                            <ion-label class="ion-label_" position="floating">Desembolso</ion-label>
+                            <ion-input clearInput type="number" ></ion-input>
+                          </ion-item>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-item>
+                            <ion-label class="ion-label_" position="floating">Fecha Desembolso</ion-label>
+                            <ion-input clearInput></ion-input>
+                          </ion-item>
+                    </ion-col>
+                  </ion-row>
+              
+
+</ion-content>
+
+
+<ion-footer >
+    <ion-toolbar color="footer" text-center >
+          <ion-button color="footer" margin-end (click)="sendSolicitud()" >
+            <ion-icon name="add-circle" ></ion-icon>
+            <ion-label >Enviar solicitud</ion-label>
+          </ion-button> 
+          <ion-button color="footer" margin-start routerLink="/calendario" >
+            <ion-icon name="calendar"></ion-icon>
+            <ion-label >Calendario</ion-label>
+          </ion-button>   
+    </ion-toolbar>
+  </ion-footer>

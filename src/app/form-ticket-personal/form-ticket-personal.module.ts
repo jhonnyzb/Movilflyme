@@ -9,6 +9,7 @@ import { FormTicketPersonalPage } from './form-ticket-personal.page';
 import { PopCiudadesComponent } from '../componentes/pop-ciudades/pop-ciudades.component';
 import { ComponentesModule } from '../componentes/componentes.module';
 import { PopAddPasejerosPersonalComponent } from '../componentes/pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
+import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
 @NgModule({
   entryComponents:[
     PopCiudadesComponent,
-    PopAddPasejerosPersonalComponent
+    PopAddPasejerosPersonalComponent,
+    TucuentaComponent
   ],
   imports: [
     CommonModule,
