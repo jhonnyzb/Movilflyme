@@ -113,12 +113,36 @@
     </ion-col>
   </ion-row>
  
-  <ion-button color=footer expand="block" (click)="presentPopoverAddpasajero()">Agregar Pasajero</ion-button>
-  
+  <ion-button color=footer expand="block" (click)="presentPopoverAddpasajero()">
+      <ion-icon name="person-add" slot="start" ></ion-icon>
+      <ion-label class="ion-label_"> Agregar Pasajero</ion-label>  
+  </ion-button>
+
+  <ion-row *ngIf="dataPassenger">  
+      <ion-col size="4">
+        <ion-label class="ion-label_">Cedula</ion-label>
+        <div class="div1 text-center">{{dataPassenger.pasajero.documento}}</div>
+      </ion-col>
+      <ion-col size="4">
+          <ion-label class="ion-label_">Nombres</ion-label>
+          <div class="div1 text-center">{{dataPassenger.pasajero.nombres}}</div>
+      </ion-col>
+      <ion-col size="4">
+          <ion-label class="ion-label_">Apellidos</ion-label>
+          <div class="div1 text-center">{{dataPassenger.pasajero.apellidos}}</div>
+      </ion-col>
+    </ion-row>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="footer" text-center>
-    <ion-title>Footer</ion-title>
+    <ion-buttons slot="start">
+      <ion-button >Enviar
+       
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons>
+      
+    </ion-buttons>
   </ion-toolbar>
 </ion-footer>

@@ -21,13 +21,13 @@
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating"># Documento</ion-label>
-        <ion-input clearInput type="number" name="documento" [(ngModel)]="documento" ></ion-input>
+        <ion-input clearInput type="number" name="documento" [(ngModel)]="pasajero.documento" ></ion-input>
       </ion-item>
     </ion-col>
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating">Nombres</ion-label>
-        <ion-input clearInput name="nombres" [(ngModel)]="nombres"></ion-input>
+        <ion-input clearInput name="nombres" [(ngModel)]="pasajero.nombres"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -35,7 +35,7 @@
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating">Apellidos</ion-label>
-        <ion-input clearInput name="apellidos" [(ngModel)]="apellidos"></ion-input>
+        <ion-input clearInput name="apellidos" [(ngModel)]="pasajero.apellidos"></ion-input>
       </ion-item>
     </ion-col>
     <ion-col size="6">
@@ -50,8 +50,8 @@
     </ion-col>
   </ion-row>
   
-    <ion-button color="footer" expand="block">
-        <ion-icon name="person-add" slot="start"></ion-icon>
+    <ion-button color="footer" expand="block"  (click)="sendData()" >
+        <ion-icon name="person-add" slot="start" ></ion-icon>
       <ion-label class="ion-label_">Agregar</ion-label>
     </ion-button>
 

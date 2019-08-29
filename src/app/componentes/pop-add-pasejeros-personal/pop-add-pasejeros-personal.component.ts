@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pop-add-pasejeros-personal',
@@ -12,6 +13,7 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
   fecha_nacimiento: string = '';
   mesparcial: string = '';
   diaparcial: string = '';
+  tipoDocumento: string = '';
 
   pasajero = {
     documento: null,
@@ -19,7 +21,7 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
     apellidos: ''
   }
 
-  constructor() { }
+  constructor(public popoverController: PopoverController) { }
 
   ngOnInit() {
     //fecha ida
@@ -40,9 +42,7 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
             this.diaparcial = event.day.value;
           }
           this.fecha_nacimiento = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
-
-          console.log(this.fecha_nacimiento)
-          //console.log(event)
+          
         }
       }, {
         text: 'Cancelar',
@@ -56,7 +56,21 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
 
 
   cambioTipo(event) {
+    this.tipoDocumento = event.detail.value;
 
   }
 
+  sendData(){
+    let data = {
+      tipoDocumento: this.tipoDocumento,
+      documento: this.pasajero.documento,
+      nombres: this.pasajero.nombres,
+      apellidos: this.pasajero.apellidos,
+      fecha_nacimiento: this.fecha_nacimiento
+    }
+    this.popoverController.dismiss({
+      pasajero : data
+    });
+  }
+ 
 }

@@ -23,6 +23,9 @@ export class FormTicketPersonalPage implements OnInit {
   textBotonCiudadO = 'Click para elegir';
   textBotonCiudadR = 'Click para elegir';
   banderaTrayecto: boolean = true;
+  dataPassenger: any;
+ 
+
   constructor(public popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -150,6 +153,9 @@ export class FormTicketPersonalPage implements OnInit {
     await popover.present();
     //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
+    this.dataPassenger = data;
+    console.log(this.dataPassenger.pasajero.nombres)
   }
 
+ 
 }
