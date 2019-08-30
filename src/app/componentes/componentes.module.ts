@@ -10,13 +10,35 @@ import { PopCiudadesComponent } from './pop-ciudades/pop-ciudades.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { PopAddPasejerosPersonalComponent } from './pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
 import { TucuentaComponent } from './tucuenta/tucuenta.component';
+import { FormIdaVueltaLaboralComponent } from './form-ida-vuelta-laboral/form-ida-vuelta-laboral.component';
+import { FormIdaLaboralComponent } from './form-ida-laboral/form-ida-laboral.component';
+import { FormMultitrayectolaboralComponent } from './form-multitrayectolaboral/form-multitrayectolaboral.component';
 
 
 
 @NgModule({
-  declarations: [PopitemsComponent, PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent, TucuentaComponent ],
+  entryComponents:[
+    PopCiudadesComponent
+  ],
+  declarations: [PopitemsComponent, 
+    PopDetailPasajesPersonalComponent, 
+    PopCiudadesComponent, 
+    PopAddPasejerosPersonalComponent, 
+    TucuentaComponent,
+    FormIdaVueltaLaboralComponent,
+    FormIdaLaboralComponent,
+    FormMultitrayectolaboralComponent
+  ],
   exports:[
-    PopitemsComponent,PopDetailPasajesPersonalComponent, PopCiudadesComponent, PopAddPasejerosPersonalComponent, TucuentaComponent
+    PopitemsComponent,
+    PopDetailPasajesPersonalComponent, 
+    PopCiudadesComponent, 
+    PopAddPasejerosPersonalComponent, 
+    TucuentaComponent, 
+    FormIdaVueltaLaboralComponent,
+    FormIdaLaboralComponent,
+    FormMultitrayectolaboralComponent
+
   ],
   imports: [
     CommonModule,

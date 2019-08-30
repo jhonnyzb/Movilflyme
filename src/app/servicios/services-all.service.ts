@@ -48,6 +48,14 @@ public solicitudPasajepersonal(solicitud:any){
 }
 
 
+public solicitudPasajeLaboral(solicitud:any){
+  return this.http.post(this.baseUrl + '/users/curl/consumirform/laboral', solicitud, {
+    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
+  });
+}
+
+
+
   public ticketLaboral(fecha: any) {
     //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
     //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
@@ -153,11 +161,11 @@ public solicitudPasajepersonal(solicitud:any){
           },
           {
             opcion_: 'Anulados',
-            value_: 'anulados',
+            value_: 'anulado',
           },
           {
             opcion_: 'Rechazados',
-            value_: 'rechazados',
+            value_: 'rechazado',
           },
         ]
       },
@@ -199,19 +207,19 @@ public solicitudPasajepersonal(solicitud:any){
           },
           {
             opcion_: 'Cotizados',
-            value_: 'cotizados'
+            value_: 'cotizado'
           },
           {
             opcion_: 'Aceptados',
-            value_: 'aceptados',
+            value_: 'aceptado',
           },
           {
             opcion_: 'Anulados',
-            value_: 'anulados',
+            value_: 'anulado',
           },
           {
             opcion_: 'Rechazados',
-            value_: 'rechazados',
+            value_: 'rechazado',
           },
         ]
       }

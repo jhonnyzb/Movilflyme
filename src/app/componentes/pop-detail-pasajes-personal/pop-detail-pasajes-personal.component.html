@@ -15,16 +15,16 @@
   </ion-row>
   <ion-row  *ngFor="let detail of details | paginate: { itemsPerPage: 4, currentPage: pageActual }" >
     <ion-col size="3">
-      <ion-item>
+      <ion-item text-center>
         <ion-label>
-            {{detail.ciudad_origen  | slice:0:8}}
+            {{detail.ciudad_origen  | slice:0:3}}
         </ion-label>
       </ion-item>
     </ion-col>
     <ion-col size="3">
-      <ion-item>
+      <ion-item text-center>
         <ion-label>
-            {{detail.ciudad_destino | slice:0:8}}
+            {{detail.ciudad_destino | slice:0:3}}
         </ion-label>
       </ion-item>
     </ion-col>
@@ -44,39 +44,11 @@
         <img src="../../../assets/icon/loading.gif" alt="">
     </ion-col>
   </ion-row>
-  <div *ngIf="details">
+  <div *ngIf="details" text-center>
       <pagination-controls (pageChange)="pageActual = $event" directionLinks="false">
       </pagination-controls>
   </div>
-
-  <!-- <table class="table table-hover">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Origen</th>
-        <th scope="col">Destino</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Detalles</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr text-center *ngFor="let detail of details | paginate: { itemsPerPage: 4, currentPage: pageActual } ">
-        <td>{{detail.ciudad_origen  | slice:0:8}} </td>
-        <td>{{detail.ciudad_destino | slice:0:8}}</td>
-        <td>{{detail.fecha_solicitud}}</td>
-        <td>
-          <ion-icon color="primary" name="eye"></ion-icon>
-        </td>
-      </tr>
-      <tr *ngIf="!details" text-center>
-        <div>
-          <img src="../../../assets/icon/loading.gif" alt="">
-        </div>
-
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="details">
-    <pagination-controls (pageChange)="pageActual = $event" directionLinks="false">
-    </pagination-controls>
-  </div> -->
+  <ion-button color="footer" expand="block" (click)="cerrarDetallesPasajes()">
+              Cerrar
+  </ion-button>
 </ion-content>

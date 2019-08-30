@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServicesAllService } from '../servicios/services-all.service';
 import { PopoverController } from '@ionic/angular';
 import { PopDetailPasajesPersonalComponent } from '../componentes/pop-detail-pasajes-personal/pop-detail-pasajes-personal.component';
@@ -9,7 +9,7 @@ import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   opciones: any;
   opciones_: any;
@@ -66,7 +66,7 @@ export class HomePage implements OnInit {
       component: PopDetailPasajesPersonalComponent,
       componentProps: { tipoRegistro: idvalue, estado: this.estado },
       cssClass: 'popover_class',
-      //backdropDismiss: false,
+      backdropDismiss: false,
       translucent: true
     });
     await popover.present();
@@ -79,7 +79,7 @@ export class HomePage implements OnInit {
     const popover = await this.popoverController.create({
       component: TucuentaComponent,
       event: evento,
-      mode:'ios',
+      mode: 'ios',
       //componentProps: { idopcion: idvalue },
       //cssClass: 'popover_class',
       //backdropDismiss: false,
@@ -93,5 +93,9 @@ export class HomePage implements OnInit {
   }
 
 
-  
+
+  ngOnDestroy() {
+
+  }
+
 }

@@ -8,6 +8,9 @@ import { IonicModule } from '@ionic/angular';
 import { FormTicketLaboralPage } from './form-ticket-laboral.page';
 import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 import { ComponentesModule } from '../componentes/componentes.module';
+import { FormIdaVueltaLaboralComponent } from '../componentes/form-ida-vuelta-laboral/form-ida-vuelta-laboral.component';
+import { FormIdaLaboralComponent } from '../componentes/form-ida-laboral/form-ida-laboral.component';
+import { FormMultitrayectolaboralComponent } from '../componentes/form-multitrayectolaboral/form-multitrayectolaboral.component';
 
 const routes: Routes = [
   {
@@ -18,7 +21,10 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents:[
-    TucuentaComponent
+    TucuentaComponent,
+    FormIdaVueltaLaboralComponent,
+    FormIdaLaboralComponent,
+    FormMultitrayectolaboralComponent
   ],
   imports: [
     CommonModule,

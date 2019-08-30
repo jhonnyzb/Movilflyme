@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { ServicesAllService } from 'src/app/servicios/services-all.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
   opcion1: string = '';
 
   pageActual: number = 1;
-  constructor(public navParams:NavParams, private servicio: ServicesAllService) { 
+  constructor(public navParams:NavParams, private servicio: ServicesAllService, public popoverController: PopoverController) { 
 
     
     this.opcion1 = this.navParams.get('estado');
@@ -55,6 +55,13 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
         }
       )
     }
+  }
+
+  cerrarDetallesPasajes(){
+    let cerrada = true
+    this.popoverController.dismiss({
+      cerrada : cerrada
+    });
   }
 
 }

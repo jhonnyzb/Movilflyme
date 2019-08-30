@@ -218,7 +218,7 @@ export class FormTicketPersonalPage implements OnInit {
   sendSolicitud(){
     let solicitud = {
       sessionId:localStorage.getItem("sessionId"),
-      fechaSolicitud: '2019-08-29',
+      fechaSolicitud: '2019-08-30',
       tipoVuelo: this.tipoVuelo,
       trayectoVuelo: this.trayecto,
       fechaIda: this.fecha_ida,
@@ -251,8 +251,8 @@ export class FormTicketPersonalPage implements OnInit {
         }         
       },
       (err)=>{
-        this.presentAlertErr
-        console.log('error',err)
+        this.presentAlertErr();
+        console.log('error-2',err)
       }
     )
     //console.log(solicitud);
@@ -272,7 +272,7 @@ export class FormTicketPersonalPage implements OnInit {
   async presentAlertErr() {
     const alert = await this.alert.create({
       header: 'Error',
-      subHeader: 'En la transaccion intente de nuevo',
+      subHeader: 'En la transaccion',
       message: 'Por favor ingrese nuevamente los datos',
       buttons: ['OK']
     });
@@ -293,7 +293,5 @@ export class FormTicketPersonalPage implements OnInit {
     await popover.present();
     //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
-
-
   }
 }

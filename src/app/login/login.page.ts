@@ -38,7 +38,7 @@ export class LoginPage implements OnInit, OnDestroy {
        
       },
       (err)=>{
-        console.log(err)
+        console.log('error_', err)
     
       }
     )
