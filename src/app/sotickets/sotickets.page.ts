@@ -61,22 +61,12 @@ export class SoticketsPage implements OnInit {
 
 
   postFechaL() {
-    this.servicelaboral.ticketLaboral(this.fecha_servicel)
-    this.presentAlert();
+    
   }
 
 
   postFechaP(trayecto_:any) {
-    let t_personal = {
-      fecha: this.fecha_actual_personal,
-      trayecto: trayecto_
-    }
-    this.servicelaboral.ticketPersonal(t_personal).subscribe(
-      (res)=>{
-          console.log('ticket bien');
-      }, (err)=>{
-          console.log('error');
-      })
+   
 
 }
 

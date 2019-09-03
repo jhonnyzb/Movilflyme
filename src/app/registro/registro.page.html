@@ -4,15 +4,16 @@
           <ion-back-button defaultHref="/"></ion-back-button>
       </ion-buttons>
     <ion-title>
-        <ion-label><ion-icon name="airplane"></ion-icon>FLYME</ion-label> 
+        <ion-icon name="airplane" mode="ios"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding color="footer">
+ <ion-img class="img-log" src="../../assets/img/flyme-logo.svg" ></ion-img>
   <ion-avatar class="img-register animated infinite pulse ">
       <img src="../../assets/icon/user.svg">
-    </ion-avatar><br>
+    </ion-avatar>
     <form  (ngSubmit)="RegisterForm()" class="animated bounceIn" >
     <ion-item color="footer">
         <ion-input placeholder="Username" type="text" clearInput="true" [(ngModel)]="registro.nombre"

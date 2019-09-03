@@ -1,5 +1,7 @@
 {
   "name": "appFlyme",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

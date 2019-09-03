@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
 import { ServicesAllService } from 'src/app/servicios/services-all.service';
 
+import { Storage } from '@ionic/storage';
+
+
 @Component({
   selector: 'app-pop-detail-pasajes-personal',
   templateUrl: './pop-detail-pasajes-personal.component.html',
@@ -14,7 +17,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
   opcion1: string = '';
 
   pageActual: number = 1;
-  constructor(public navParams:NavParams, private servicio: ServicesAllService, public popoverController: PopoverController) { 
+  constructor(public navParams:NavParams, private servicio: ServicesAllService, public popoverController: PopoverController, private storage: Storage) { 
 
     
     this.opcion1 = this.navParams.get('estado');
@@ -29,30 +32,50 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
 
   getDetails(){
-    if(this.opcion1 === 'solicitados'){
-      this.details = this.servicio.getDetailsPasajes();
-    }
     if(this.opcion1 === 'pasaje_aereo'){
-      this.servicio.listPasaPorAprobar(this.opcion1, this.opcion).subscribe(
-        (res:any)=>{
-          console.log(res)
-          this.details = res.datos.dat
-        },
-        (err)=>{
-          console.log(err)
+      this.storage.get('sessionId').then(
+        (res)=>{
+          let consultaPasajes = {
+            sessionId: res,
+            estado: this.opcion1,
+            tipoRegistro: this.opcion
+          }
+          this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
+            (res:any)=>{
+              this.details = res.datos.dat
+            },
+            (err)=>{
+              console.log(err)
+            }
+          )
         }
+      ).catch(
+        erro=> console.log('Error pop-details')
       )
     }
-    if(this.opcion1 === 'pasaje_aereo_personal'){
-      this.servicio.listPasaPorAprobar(this.opcion1, this.opcion).subscribe(
 
-        (res:any)=>{
-          console.log(res)
-          this.details = res.datos.dat
-        },
-        (err)=>{
-          console.log(err)
+
+
+    if(this.opcion1 === 'pasaje_aereo_personal'){
+
+      this.storage.get('sessionId').then(
+        (res)=>{
+          let consultaPasajes = {
+            sessionId: res,
+            estado: this.opcion1,
+            tipoRegistro: this.opcion
+          }
+          this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
+            (res:any)=>{
+              this.details = res.datos.dat
+            },
+            (err)=>{
+              console.log(err)
+            }
+          )
         }
+      ).catch(
+        erro => console.log('Error pop-details')
       )
     }
   }

@@ -13,12 +13,10 @@ export class PopitemsComponent implements OnInit {
   constructor(private items: ServicesAllService, public popoverController: PopoverController) { }
 
   ngOnInit() {
-    this.getItems();
+    
   }
 
-  getItems(){
-    this.getitems =  this.items.getItems();
-  }
+  
 
   clickItem(data){
     console.log(data)

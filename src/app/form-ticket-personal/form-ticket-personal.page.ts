@@ -4,7 +4,9 @@ import { PopCiudadesComponent } from '../componentes/pop-ciudades/pop-ciudades.c
 import { PopAddPasejerosPersonalComponent } from '../componentes/pop-add-pasejeros-personal/pop-add-pasejeros-personal.component';
 import { ServicesAllService } from '../servicios/services-all.service';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
+
 
 @Component({
   selector: 'app-form-ticket-personal',
@@ -35,9 +37,10 @@ export class FormTicketPersonalPage implements OnInit {
   hora_ida: string = '';
   hora_regreso: string = '';
   banderapasaporte: boolean = false;
+  sessionid: string = '';
  
 
-  constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController,private router: Router) { }
+  constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController,private router: Router, private storage: Storage) { }
 
   ngOnInit() {
     //fecha ida
@@ -216,46 +219,51 @@ export class FormTicketPersonalPage implements OnInit {
 
 
   sendSolicitud(){
-    let solicitud = {
-      sessionId:localStorage.getItem("sessionId"),
-      fechaSolicitud: '2019-08-30',
-      tipoVuelo: this.tipoVuelo,
-      trayectoVuelo: this.trayecto,
-      fechaIda: this.fecha_ida,
-      fechaVuelta:this.fecha_regreso,
-      ciudad_origen:this.ciudadOrigen,
-      ciudadDestino: this.ciudadDestino,
-      horaSalida: this.hora_ida,
-      tipoDocumento: this.dataPassenger.pasajero.tipoDocumento,
-      horaRegreso: this.hora_regreso,
-      documentoPasajero: String (this.dataPassenger.pasajero.documento),
-      nombres:this.dataPassenger.pasajero.nombres,
-      apellidos:this.dataPassenger.pasajero.apellidos,
-      fechaNacimiento: this.dataPassenger.pasajero.fecha_nacimiento,
-      pasaporte: this.dataPassenger.pasajero.pasaporte,
-      fechaVencimientoPasaporte: this.dataPassenger.pasajero.fechavencimiento
-    }
-    console.log(solicitud);
-
-    this.servicio.solicitudPasajepersonal(solicitud).subscribe(
-      (res:any)=>{
-        if (res.codigoRespuesta == 0) {
-          let mensaje = 'enviada con exito'
-          this.presentAlert(mensaje)
-          this.router.navigate(['/layout'])
-        } 
-        if (res.codigoRespuesta == 1001) {
-          let mensaje = 'error al crearla'
-          this.presentAlert(mensaje)
-          this.router.navigate(['/layout'])
-        }         
-      },
-      (err)=>{
-        this.presentAlertErr();
-        console.log('error-2',err)
+    this.storage.get('sessionId').then(
+      (res)=>{
+        let solicitud = {
+          sessionId: res,
+          fechaSolicitud: '2019-09-03',
+          tipoVuelo: this.tipoVuelo,
+          trayectoVuelo: this.trayecto,
+          fechaIda: this.fecha_ida,
+          fechaVuelta:this.fecha_regreso,
+          ciudad_origen:this.ciudadOrigen,
+          ciudadDestino: this.ciudadDestino,
+          horaSalida: this.hora_ida,
+          tipoDocumento: this.dataPassenger.pasajero.tipoDocumento,
+          horaRegreso: this.hora_regreso,
+          documentoPasajero: String (this.dataPassenger.pasajero.documento),
+          nombres:this.dataPassenger.pasajero.nombres,
+          apellidos:this.dataPassenger.pasajero.apellidos,
+          fechaNacimiento: this.dataPassenger.pasajero.fecha_nacimiento,
+          pasaporte: this.dataPassenger.pasajero.pasaporte,
+          fechaVencimientoPasaporte: this.dataPassenger.pasajero.fechavencimiento
+        }
+        console.log(solicitud);
+        this.servicio.solicitudPasajepersonal(solicitud).subscribe(
+          (res:any)=>{
+            if (res.codigoRespuesta == 0) {
+              let mensaje = 'enviada con exito'
+              this.presentAlert(mensaje)
+              this.router.navigate(['/layout'])
+            } 
+            if (res.codigoRespuesta == 1001) {
+              let mensaje = 'error al crearla'
+              this.presentAlert(mensaje)
+              this.router.navigate(['/layout'])
+            }         
+          },
+          (err)=>{
+            this.presentAlertErr();
+            console.log('error-2',err)
+          }
+        )
       }
-    )
-    //console.log(solicitud);
+    ).catch(
+      error=> console.log('error idsession no existente')
+    )  
+    
   }
 
 

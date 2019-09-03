@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { Observable, from } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +12,9 @@ export class ServicesAllService {
   details: any;
   Items: any;
   opcion: any;
-  baseUrl: string = 'http://10.133.10.221'
-
-  constructor(private http: HttpClient) { }
+  baseUrl: string = 'http://10.133.10.2234'
+  sesioid: any;
+  constructor(private http: HttpClient, private storage: Storage ) { }
 
 
 
@@ -22,107 +26,37 @@ export class ServicesAllService {
 
   public register(registro: any) {
     return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
+    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
     });
-
-
-
-  }
-  public listPasaPorAprobar(tipoRegistro:any, estado:any) {
-    let sesioid = {
-      sessionId: localStorage.getItem("sessionId"),
-      estado: estado,
-      tipoRegistro: tipoRegistro
-    }
-    console.log(sesioid)
-    return this.http.post(this.baseUrl + '/users/curl/consultar', sesioid, {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
-    });
-
   }
 
-public solicitudPasajepersonal(solicitud:any){
-  return this.http.post(this.baseUrl + '/users/curl/consumirform/personal', solicitud, {
-    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
-  });
-}
 
-
-public solicitudPasajeLaboral(solicitud:any){
-  return this.http.post(this.baseUrl + '/users/curl/consumirform/laboral', solicitud, {
-    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token"))
-  });
-}
-
-
-
-  public ticketLaboral(fecha: any) {
-    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-    //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
-    //});
-    return this.http.post('jgjgk', fecha);
+  public listPasaPorAprobar(ConsultaPasajes: any) {
+    return this.http.post(this.baseUrl + '/users/curl/consultar', ConsultaPasajes);
   }
 
-  public ticketPersonal(dataTicket: any) {
-    //return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-    //headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")),
-    //});
-    return this.http.post('fhg', dataTicket);
+
+
+
+
+  public solicitudPasajepersonal(solicitud: any) {
+    return this.http.post(this.baseUrl + '/users/curl/consumirform/personal', solicitud);
   }
+
+
+  public solicitudPasajeLaboral(solicitud: any) {
+    return this.http.post(this.baseUrl + '/users/curl/consumirform/laboral', solicitud);
+  }
+
 
   getCiudades() {
     return this.http.get('https://restcountries.eu/rest/v2/all');
   }
 
+  getToken (): Observable<any> {
+    return from(this.storage.get('token'));
+}
 
-  getItems() {
-
-    return this.Items = [
-      {
-        numero: 1,
-        descripcion: 'uno',
-      },
-      {
-        numero: 2,
-        descripcion: 'dos',
-      },
-      {
-        numero: 3,
-        descripcion: 'tres',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      }, {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-      {
-        numero: 4,
-        descripcion: 'cuatro',
-      },
-    ]
-  }
 
   opcionHomeTicket() {
     return this.opcion = [
@@ -225,82 +159,6 @@ public solicitudPasajeLaboral(solicitud:any){
       }
     ]
   }
-
-
-  getDetailsPasajes() {
-
-    return this.details = [
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-    ]
-  }
-
-
-  getDetailsPasajesC() {
-
-    return this.details = [
-      {
-        origen: 'Bogota',
-        destino: 'Cali',
-        fecha: '10-12-2018'
-      },
-
-    ]
-  }
-
 
 
 }
