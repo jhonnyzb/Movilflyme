@@ -16,7 +16,6 @@ export class InterceptorService implements HttpInterceptor {
   constructor(private servicios: ServicesAllService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
     return this.servicios.getToken().pipe(mergeMap(
       (token: any) => {
         let request = req;

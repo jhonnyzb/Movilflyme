@@ -40,9 +40,11 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
             estado: this.opcion1,
             tipoRegistro: this.opcion
           }
+          console.log(consultaPasajes)
           this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
             (res:any)=>{
               this.details = res.datos.dat
+              console.log(res.datos.dat)
             },
             (err)=>{
               console.log(err)

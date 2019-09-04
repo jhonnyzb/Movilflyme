@@ -30,7 +30,7 @@ export class LoginPage implements OnInit, OnDestroy {
         if (res.codigoRespuesta == 0){
           this.storage.set('token', res.access_token );
           this.storage.set('sessionId', res.sessionId);
-          //localStorage.setItem('token',res.access_token)
+          localStorage.setItem('token',res.access_token)
           //localStorage.setItem('sessionId',res.sessionId)
           this.router.navigate(['/layout'])
         }
