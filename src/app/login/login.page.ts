@@ -22,24 +22,26 @@ export class LoginPage implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
+  
 
   LoginForm(){
     this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
         console.log(res)
         if (res.codigoRespuesta == 0){
-          this.storage.set('token', res.access_token );
-          this.storage.set('sessionId', res.sessionId);
-          localStorage.setItem('token',res.access_token)
-          //localStorage.setItem('sessionId',res.sessionId)
+          this.storage.set('datos',res)
           this.router.navigate(['/layout'])
         }
         if(res.codigoRespuesta == 1001){
           this.presentAlert();
-        }      
-             },
+        } 
+        if(res.codigoRespuesta == 1009){
+          this.presentAlertErrorBackendMrChispa();
+        }         
+        },
       (err)=>{
        this.presentAlertErrorBackend(err)
+       console.log(err)
     
       }
     )
@@ -67,6 +69,15 @@ export class LoginPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
+  async presentAlertErrorBackendMrChispa() {
+    const alert = await this.alert.create({
+      header: 'Error',
+      subHeader: 'servidor mr Chispa',
+      message: 'Por favor intentelo mas tarde',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
   ngOnDestroy(){
     //this.suscriptionLogin.unsubscribe();

@@ -30,6 +30,7 @@ export class HomePage implements OnInit, OnDestroy {
   cambio(event: any) {
 
     if (event.detail.value === 'anticipo') {
+      this.estado = event.detail.value;
       var index = this.opciones.findIndex(obj => obj.value === 'anticipo');
       this.opciones_ = this.opciones[index].opcionesInternas;
       console.log(this.opciones_)
@@ -41,6 +42,7 @@ export class HomePage implements OnInit, OnDestroy {
       console.log(this.opciones_)
     }
     if (event.detail.value === 'reembolso') {
+      this.estado = event.detail.value;
       var index = this.opciones.findIndex(obj => obj.value === 'reembolso');
       this.opciones_ = this.opciones[index].opcionesInternas;
       console.log(this.opciones_)

@@ -97,15 +97,16 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
   sendData(){
     let data = {
       tipoDocumento: this.tipoDocumento,
-      documento: this.pasajero.documento,
+      documentoPasajero: this.pasajero.documento,
       nombres: this.pasajero.nombres,
       apellidos: this.pasajero.apellidos,
-      fecha_nacimiento: this.fecha_nacimiento,
+      fechaNacimiento: this.fecha_nacimiento,
       pasaporte: this.pasajero.pasaporte,
-      fechavencimiento: this.fecha_vencimiento
+      fechaVencimientoPasaporte: this.fecha_vencimiento
     }
+
     this.popoverController.dismiss({
-      pasajero : data
+      pasajero: data 
     });
   }
  

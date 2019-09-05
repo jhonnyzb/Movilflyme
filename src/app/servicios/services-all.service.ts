@@ -36,9 +36,6 @@ export class ServicesAllService {
   }
 
 
-
-
-
   public solicitudPasajepersonal(solicitud: any) {
     return this.http.post(this.baseUrl + '/users/curl/consumirform/personal', solicitud);
   }
@@ -49,12 +46,13 @@ export class ServicesAllService {
   }
 
 
-  getCiudades() {
-    return this.http.get('https://restcountries.eu/rest/v2/all');
+  getCiudades(ciudad: any) {
+    return this.http.post('http://10.133.10.176/auth/cunsultaPaisesCurl/', ciudad)
+    
   }
 
   getToken (): Observable<any> {
-    return from(this.storage.get('token'));
+    return from(this.storage.get('datos'));
 }
 
 

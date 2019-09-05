@@ -33,18 +33,18 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
   getDetails(){
     if(this.opcion1 === 'pasaje_aereo'){
-      this.storage.get('sessionId').then(
+      this.storage.get('datos').then(
         (res)=>{
           let consultaPasajes = {
-            sessionId: res,
-            estado: this.opcion1,
-            tipoRegistro: this.opcion
+            sessionId: res.sessionId,
+            estado: this.opcion,
+            tipoRegistro: this.opcion1
           }
           console.log(consultaPasajes)
           this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
             (res:any)=>{
               this.details = res.datos.dat
-              console.log(res.datos.dat)
+              console.log(this.details)
             },
             (err)=>{
               console.log(err)
@@ -60,16 +60,18 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
 
     if(this.opcion1 === 'pasaje_aereo_personal'){
 
-      this.storage.get('sessionId').then(
+      this.storage.get('datos').then(
         (res)=>{
           let consultaPasajes = {
-            sessionId: res,
-            estado: this.opcion1,
-            tipoRegistro: this.opcion
+            sessionId: res.sessionId,
+            estado: this.opcion,
+            tipoRegistro: this.opcion1
           }
+          console.log(consultaPasajes)
           this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
             (res:any)=>{
               this.details = res.datos.dat
+              console.log(this.details)
             },
             (err)=>{
               console.log(err)
@@ -80,6 +82,58 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
         erro => console.log('Error pop-details')
       )
     }
+
+    if(this.opcion1 === 'anticipo'){
+
+      this.storage.get('datos').then(
+        (res)=>{
+          let consultaPasajes = {
+            sessionId: res.sessionId,
+            estado: this.opcion,
+            tipoRegistro: this.opcion1
+          }
+          console.log(consultaPasajes)
+          this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
+            (res:any)=>{
+              this.details = res.datos.dat
+              console.log(this.details)
+            },
+            (err)=>{
+              console.log(err)
+            }
+          )
+        }
+      ).catch(
+        erro => console.log('Error pop-details')
+      )
+    }
+
+    if(this.opcion1 === 'reembolso'){
+
+      this.storage.get('datos').then(
+        (res)=>{
+          let consultaPasajes = {
+            sessionId: res.sessionId,
+            estado: this.opcion,
+            tipoRegistro: this.opcion1
+          }
+          console.log(consultaPasajes)
+          this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
+            (res:any)=>{
+              this.details = res.datos.dat
+              console.log(this.details)
+            },
+            (err)=>{
+              console.log(err)
+            }
+          )
+        }
+      ).catch(
+        erro => console.log('Error pop-details')
+      )
+    }
+
+
   }
 
   cerrarDetallesPasajes(){

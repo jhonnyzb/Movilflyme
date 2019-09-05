@@ -7,6 +7,7 @@ import { FormMultitrayectolaboralComponent } from '../componentes/form-multitray
 import { ServicesAllService } from '../servicios/services-all.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -33,9 +34,12 @@ export class FormTicketLaboralPage implements OnInit, OnDestroy {
   desembolso: string = '';
   trayecto: string = '';
   detalleTrayectoIdaVuelta: any;
+  cedula: string = '';
+  centroDeCosto: String = '';
+  subCentroCosto: string = '';
 
 
-  constructor(public popoverController: PopoverController, private servicio:ServicesAllService, public alert: AlertController, private router: Router) { }
+  constructor(public popoverController: PopoverController, private servicio:ServicesAllService, public alert: AlertController, private router: Router,private storage: Storage) { }
 
   ngOnInit() {
 
@@ -96,9 +100,20 @@ this.opcionesFechaNacimiento = {
   }]
 }
 
+this.obtenerDatosSolicitante();
 
   }
 
+
+  obtenerDatosSolicitante(){
+    this.storage.get('datos').then(
+      (res)=>{
+        this.cedula = res.cedula,
+        this.centroDeCosto = res.nombreCentroCosto,
+        this.subCentroCosto = res.nombreSubCentroCosto
+      }
+    )
+  }
 
   async presentPopoverTuCuenta(evento) {
     const popover = await this.popoverController.create({
@@ -153,13 +168,9 @@ this.opcionesFechaNacimiento = {
     this.trayecto = 'multi_trayecto';
     const popover = await this.popoverController.create({
       component: FormMultitrayectolaboralComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
   }
 
@@ -178,37 +189,38 @@ this.opcionesFechaNacimiento = {
   }
 
   enviarPasajeLaboral(){
-    
-    let solicitudPasajeLaboral = {
-      sessionId:localStorage.getItem("sessionId"),
-      motivo:this.motivo,
-      solicitaAnticipo: this.solicitarAnticipo,
-      descripcion: this.descripcion,
-      valorAnticipo: this.valorAnticipo,
-      valorAnticipoLetras: this.valorAnticipoLetras,
-      tipoDesembolso: this.desembolso,
-      fechaRequeridaDesembolso: this.fechaDesembolso,
-      trayectoVuelo: this.trayecto,
-      numeroViajeroFrecuente: String(this.numeroViajeroFrecuente) ,
-      fechaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaida,
-      fechaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaRegreso,
-      horaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaIda,
-      horaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaRegreso
-    }
 
-    this.suscriptionLaboral = this.servicio.solicitudPasajeLaboral(solicitudPasajeLaboral).subscribe(
+    this.storage.get('datos').then(
       (res)=>{
-        this.router.navigate(['/layout'])
-        this.presentAlert();
-
-        console.log(res)
-      },
-      (err)=>{
-        console.log(err)
+        let solicitudPasajeLaboral = {
+          sessionId:res.sessionId,
+          motivo:this.motivo,
+          solicitaAnticipo: this.solicitarAnticipo,
+          descripcion: this.descripcion,
+          valorAnticipo: this.valorAnticipo,
+          valorAnticipoLetras: this.valorAnticipoLetras,
+          tipoDesembolso: this.desembolso,
+          fechaRequeridaDesembolso: this.fechaDesembolso,
+          trayectoVuelo: this.trayecto,
+          numeroViajeroFrecuente: String(this.numeroViajeroFrecuente) ,
+          fechaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaida,
+          fechaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaRegreso,
+          horaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaIda,
+          horaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaRegreso
+        }
+        console.log(solicitudPasajeLaboral);
+        this.suscriptionLaboral = this.servicio.solicitudPasajeLaboral(solicitudPasajeLaboral).subscribe(
+          (res)=>{
+            this.router.navigate(['/layout'])
+            this.presentAlert();    
+            console.log(res)
+          },
+          (err)=>{
+            console.log(err)
+          }
+        )
       }
     )
-    console.log(solicitudPasajeLaboral)
-
   }
 
   async presentAlert() {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicesAllService } from 'src/app/servicios/services-all.service';
 import { PopoverController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-pop-ciudades',
@@ -9,25 +11,38 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PopCiudadesComponent implements OnInit {
 
-  ciudades: any[]=[];
+  ciudades: any[] = [];
   textoAbuscar = '';
-  constructor( private servicio: ServicesAllService,public popoverController: PopoverController) { }
+  constructor(private servicio: ServicesAllService, public popoverController: PopoverController, private storage: Storage) { }
 
   ngOnInit() {
-    this.servicio.getCiudades().subscribe(
-      (res:any)=>{
-        this.ciudades = res
+
+  }
+
+  buscar(event) {
+    
+    this.storage.get('datos').then(
+      (res) => {
+        let ciudad = { sessionId: res.sessionId, ciudad: event.detail.value }
+        console.log(ciudad)
+        this.servicio.getCiudades(ciudad).subscribe(
+          (res: any) => {
+            this.ciudades = res
+            console.log(res)
+          },
+          (err)=>{
+            console.log('error en ciudad')
+          }
+        )
       }
     )
+
+
   }
 
-  buscar(event){
-    this.textoAbuscar = event.detail.value;
-  }
-
-  clickCiudad(data){
+  clickCiudad(data) {
     this.popoverController.dismiss({
-      ciudad : data
+      ciudad: data
     });
   }
 

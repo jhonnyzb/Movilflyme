@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 
 
+
 @Component({
   selector: 'app-form-ticket-personal',
   templateUrl: './form-ticket-personal.page.html',
@@ -20,27 +21,30 @@ export class FormTicketPersonalPage implements OnInit {
   optionspickersH;
   optionspickersFr;
   optionspickersHr;
-  //fecha: Date = new Date();
-  ciudadOrigen: string = '';
-  ciudadDestino: string = '';
+  ciudadOrigen:any;
+  ciudadDestino: any;
   tipoVuelo: string = '';
   trayecto: string = '';
   textBotonCiudadO = 'Click para elegir';
   textBotonCiudadR = 'Click para elegir';
   banderaTrayecto: boolean = true;
-  dataPassenger: any;
+  datosPasajeros: any[] = [];
   mesparcial: string = '';
   diaparcial: string = '';
   horaparcial: string = '';
-  fecha_ida: string ='';
+  fecha_ida: string = '';
   fecha_regreso: string = '';
   hora_ida: string = '';
   hora_regreso: string = '';
   banderapasaporte: boolean = false;
   sessionid: string = '';
- 
+  cedula: string = '';
+  centroDeCosto: String = '';
+  subCentroCosto: string = '';
+  pasajero: any
 
-  constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController,private router: Router, private storage: Storage) { }
+
+  constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController, private router: Router, private storage: Storage) { }
 
   ngOnInit() {
     //fecha ida
@@ -52,12 +56,12 @@ export class FormTicketPersonalPage implements OnInit {
           let diat = String(event.day.value);
           if (mest.length === 1) {
             this.mesparcial = '0' + mest;
-          }else{
+          } else {
             this.mesparcial = event.month.value;
           }
           if (diat.length === 1) {
             this.diaparcial = '0' + diat;
-          }else{
+          } else {
             this.diaparcial = event.day.value;
           }
           this.fecha_ida = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
@@ -79,7 +83,7 @@ export class FormTicketPersonalPage implements OnInit {
           let hora = event.hour.text;
           if (hora.length === 1) {
             this.horaparcial = '0' + hora;
-          }else{
+          } else {
             this.horaparcial = event.hour.text;
           }
           this.hora_ida = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
@@ -103,12 +107,12 @@ export class FormTicketPersonalPage implements OnInit {
           let diat = String(event.day.value);
           if (mest.length === 1) {
             this.mesparcial = '0' + mest;
-          }else{
+          } else {
             this.mesparcial = event.month.value;
           }
           if (diat.length === 1) {
             this.diaparcial = '0' + diat;
-          }else{
+          } else {
             this.diaparcial = event.day.value;
           }
           this.fecha_regreso = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
@@ -130,7 +134,7 @@ export class FormTicketPersonalPage implements OnInit {
           let hora = event.hour.text;
           if (hora.length === 1) {
             this.horaparcial = '0' + hora;
-          }else{
+          } else {
             this.horaparcial = event.hour.text;
           }
           this.hora_regreso = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
@@ -143,13 +147,25 @@ export class FormTicketPersonalPage implements OnInit {
         }
       }]
     }
+
+    this.obtenerDatosSolicitante()
+  }
+
+  obtenerDatosSolicitante() {
+    this.storage.get('datos').then(
+      (res) => {
+        this.cedula = res.cedula,
+          this.centroDeCosto = res.nombreCentroCosto,
+          this.subCentroCosto = res.nombreSubCentroCosto
+      }
+    )
   }
 
 
   cambioTipo(event) {
-    if (event.detail.value === 'internacional'){
-        this.banderapasaporte = true;
-    }else{
+    if (event.detail.value === 'internacional') {
+      this.banderapasaporte = true;
+    } else {
       this.banderapasaporte = false;
     }
     this.tipoVuelo = event.detail.value;
@@ -172,31 +188,26 @@ export class FormTicketPersonalPage implements OnInit {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
+   
     const { data } = await popover.onWillDismiss();
     this.ciudadOrigen = data.ciudad;
-    this.textBotonCiudadO = data.ciudad;
+    this.textBotonCiudadO = data.ciudad.ciudad;
   }
+
   async presentPopoverDestino() {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
+    
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
     this.ciudadDestino = data.ciudad;
-    this.textBotonCiudadR = data.ciudad;
+    this.textBotonCiudadR = data.ciudad.ciudad;
   }
 
 
@@ -206,41 +217,47 @@ export class FormTicketPersonalPage implements OnInit {
       component: PopAddPasejerosPersonalComponent,
       componentProps: { RequiredPasaporte: this.banderapasaporte },
       cssClass: 'popover_classaddPasajeros',
-      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
-    this.dataPassenger = data;
-    //console.log(this.dataPassenger.pasajero.nombres)
+    let datosPasajeros = {
+      tipoDocumento: data.pasajero.tipoDocumento,
+      documentoPasajero: data.pasajero.documentoPasajero,
+      nombres: data.pasajero.nombres,
+      apellidos: data.pasajero.apellidos,
+      fechaNacimiento: data.pasajero.fechaNacimiento,
+      pasaporte: data.pasajero.pasaporte,
+      fechaVencimientoPasaporte: data.pasajero.fechaVencimientoPasaporte
+    }
+    this.datosPasajeros.push(datosPasajeros)
+   
   }
 
 
 
-  sendSolicitud(){
-    this.storage.get('sessionId').then(
-      (res)=>{
+  sendSolicitud() {
+
+    this.storage.get('datos').then(
+      (res) => {
         let solicitud = {
-          sessionId: res,
-          fechaSolicitud: '2019-09-03',
+          sessionId: res.sessionId,
+          fechaSolicitud: '2019-09-05',
           tipoVuelo: this.tipoVuelo,
           trayectoVuelo: this.trayecto,
+          tipoRegistro:'pasaje_aereo_personal',
           fechaIda: this.fecha_ida,
           fechaVuelta:this.fecha_regreso,
-          ciudad_origen:this.ciudadOrigen,
-          ciudadDestino: this.ciudadDestino,
+          ciudadOrigenId:this.ciudadOrigen.ciudad_id,
+          ciudadDestinoId: this.ciudadDestino.ciudad_id,
           horaSalida: this.hora_ida,
-          tipoDocumento: this.dataPassenger.pasajero.tipoDocumento,
           horaRegreso: this.hora_regreso,
-          documentoPasajero: String (this.dataPassenger.pasajero.documento),
-          nombres:this.dataPassenger.pasajero.nombres,
-          apellidos:this.dataPassenger.pasajero.apellidos,
-          fechaNacimiento: this.dataPassenger.pasajero.fecha_nacimiento,
-          pasaporte: this.dataPassenger.pasajero.pasaporte,
-          fechaVencimientoPasaporte: this.dataPassenger.pasajero.fechavencimiento
+          solicitanteId: res.solicitanteId,
+          centroCostoId:res.IdCentroCosto,
+          SubCentroCostoId: res.idSubCentroCosto,
+          pasajeros: this.datosPasajeros
         }
-        console.log(solicitud);
+        console.log(solicitud)
         this.servicio.solicitudPasajepersonal(solicitud).subscribe(
           (res:any)=>{
             if (res.codigoRespuesta == 0) {
@@ -259,12 +276,15 @@ export class FormTicketPersonalPage implements OnInit {
             console.log('error-2',err)
           }
         )
+
       }
     ).catch(
-      error=> console.log('error idsession no existente')
-    )  
-    
+      error => console.log('error sessionId no existente', error)
+    )
   }
+
+
+
 
 
   async presentAlert(mensaje) {
@@ -275,7 +295,7 @@ export class FormTicketPersonalPage implements OnInit {
     });
     await alert.present();
   }
- 
+
 
   async presentAlertErr() {
     const alert = await this.alert.create({
@@ -292,7 +312,7 @@ export class FormTicketPersonalPage implements OnInit {
     const popover = await this.popoverController.create({
       component: TucuentaComponent,
       event: evento,
-      mode:'ios',
+      mode: 'ios',
       //componentProps: { idopcion: idvalue },
       //cssClass: 'popover_class',
       //backdropDismiss: false,

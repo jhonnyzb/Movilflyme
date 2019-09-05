@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-tucuenta',
@@ -9,7 +10,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class TucuentaComponent implements OnInit {
 
-  constructor(private router: Router, public popoverController: PopoverController) { }
+  constructor(private router: Router, public popoverController: PopoverController,private storage: Storage) { }
 
   ngOnInit() {}
 
@@ -17,9 +18,13 @@ export class TucuentaComponent implements OnInit {
   logout(){
 
     this.popoverController.dismiss();
-    localStorage.removeItem("sessionId");
-    localStorage.removeItem("token");
-    this.router.navigate(['/login']);
+    this.storage.clear().then(
+      (res)=>{
+        this.router.navigate(['/login']);
+      }
+    )
+   
+    
     
   }
   CuentaPersonal(){
