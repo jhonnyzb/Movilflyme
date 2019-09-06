@@ -39,10 +39,11 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <form [formGroup]="datosPasajes">
   <div padding>
     <ion-item>
       <ion-label>Tipo de registro</ion-label>
-      <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambio($event)">
+      <ion-select placeholder="Seleccione uno" interface="popover" formControlName="tipoRegistro" (ionChange)="cambio($event)">
         <ion-select-option value="" disabled>Seleccione Uno</ion-select-option>
         <ion-select-option *ngFor="let opcion of opciones" value="{{opcion.value}}">{{opcion.opcion}}
         </ion-select-option>
@@ -52,10 +53,11 @@
   <div padding>
     <ion-item>
       <ion-label>Estados</ion-label>
-      <ion-select interface="popover" (ionChange)="cambioEstados($event)">
+      <ion-select interface="popover" formControlName="estado"  (ionChange)="cambioEstados($event)">
         <ion-select-option *ngFor="let opcion of opciones_" value="{{opcion. value_}}">{{opcion.opcion_}}
         </ion-select-option>
       </ion-select>
     </ion-item>
   </div>
+</form>
 </ion-content>

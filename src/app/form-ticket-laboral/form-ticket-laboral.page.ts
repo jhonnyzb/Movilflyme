@@ -37,6 +37,7 @@ export class FormTicketLaboralPage implements OnInit, OnDestroy {
   cedula: string = '';
   centroDeCosto: String = '';
   subCentroCosto: string = '';
+  anticipo: boolean = false;
 
 
   constructor(public popoverController: PopoverController, private servicio:ServicesAllService, public alert: AlertController, private router: Router,private storage: Storage) { }
@@ -182,6 +183,12 @@ this.obtenerDatosSolicitante();
 
   cambioSolicitarAnticipo(event){
     this.solicitarAnticipo = event.detail.value;
+    if(event.detail.value === 'on'){
+      this.anticipo = true;
+    }else{
+      this.anticipo = false;
+    }
+
   }
 
   cambioDesembolso(event){

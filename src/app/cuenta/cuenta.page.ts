@@ -12,4 +12,6 @@ export class CuentaPage implements OnInit {
   ngOnInit() {
   }
 
+
+  presentPopoverTuCuenta(event){}
 }

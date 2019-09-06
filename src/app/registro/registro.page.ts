@@ -20,14 +20,7 @@ export class RegistroPage implements OnInit {
   }
 
   RegisterForm() {
-    this.register.register(this.registro).subscribe(
-      (res)=>{
-          console.log('OK', res)
-      },
-      (err)=>{
-        this.presentAlert();
-      }
-    )
+    
   }
 
   async presentAlert() {

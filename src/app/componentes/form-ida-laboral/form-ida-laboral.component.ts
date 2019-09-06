@@ -53,4 +53,9 @@ export class FormIdaLaboralComponent implements OnInit {
     this.textBotonCiudadR = data.ciudad;
   }
 
+
+
+  cambioSolicitaPasaje(event){
+
+  }
 }

@@ -23,14 +23,6 @@ export class ServicesAllService {
 
   }
 
-
-  public register(registro: any) {
-    return this.http.post(this.baseUrl + '/admin/persona/agregar', registro, {
-    headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem("token")).set('Authorization', 'Bearer ' + localStorage.getItem("sessionId")),
-    });
-  }
-
-
   public listPasaPorAprobar(ConsultaPasajes: any) {
     return this.http.post(this.baseUrl + '/users/curl/consultar', ConsultaPasajes);
   }

@@ -5,6 +5,7 @@ import { PopAddPasejerosPersonalComponent } from '../componentes/pop-add-pasejer
 import { ServicesAllService } from '../servicios/services-all.service';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
 import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 
 
@@ -16,7 +17,8 @@ import { TucuentaComponent } from '../componentes/tucuenta/tucuenta.component';
 })
 export class FormTicketPersonalPage implements OnInit {
 
-  fecha_actual: Date = new Date();
+  fecha_actualI: any;
+  fecha_actualR: any;
   optionspickers;
   optionspickersH;
   optionspickersFr;
@@ -65,6 +67,7 @@ export class FormTicketPersonalPage implements OnInit {
             this.diaparcial = event.day.value;
           }
           this.fecha_ida = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+         this.fecha_actualI = this.fecha_ida
           console.log(this.fecha_ida)
         }
       }, {
@@ -116,6 +119,7 @@ export class FormTicketPersonalPage implements OnInit {
             this.diaparcial = event.day.value;
           }
           this.fecha_regreso = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+          this.fecha_actualR = this.fecha_regreso
           console.log(this.fecha_regreso)
         }
       }, {
@@ -237,12 +241,11 @@ export class FormTicketPersonalPage implements OnInit {
 
 
   sendSolicitud() {
-
     this.storage.get('datos').then(
       (res) => {
         let solicitud = {
           sessionId: res.sessionId,
-          fechaSolicitud: '2019-09-05',
+          fechaSolicitud:  moment().format('YYYY/MM/DD'),
           tipoVuelo: this.tipoVuelo,
           trayectoVuelo: this.trayecto,
           tipoRegistro:'pasaje_aereo_personal',
@@ -266,7 +269,7 @@ export class FormTicketPersonalPage implements OnInit {
               this.router.navigate(['/layout'])
             } 
             if (res.codigoRespuesta == 1001) {
-              let mensaje = 'error al crearla'
+              let mensaje = 'Errada verifique campos'
               this.presentAlert(mensaje)
               this.router.navigate(['/layout'])
             }         
@@ -282,9 +285,6 @@ export class FormTicketPersonalPage implements OnInit {
       error => console.log('error sessionId no existente', error)
     )
   }
-
-
-
 
 
   async presentAlert(mensaje) {

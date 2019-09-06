@@ -121,7 +121,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
           this.servicio.listPasaPorAprobar(consultaPasajes).subscribe(
             (res:any)=>{
               this.details = res.datos.dat
-              console.log(this.details)
+             
             },
             (err)=>{
               console.log(err)
@@ -137,10 +137,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
   }
 
   cerrarDetallesPasajes(){
-    let cerrada = true
-    this.popoverController.dismiss({
-      cerrada : cerrada
-    });
+    this.popoverController.dismiss();
   }
 
 }
