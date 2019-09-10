@@ -41,6 +41,7 @@ export class LoginPage implements OnInit, OnDestroy {
         },
       (err)=>{
        this.presentAlertErrorBackend(err)
+       
        console.log(err)
     
       }
