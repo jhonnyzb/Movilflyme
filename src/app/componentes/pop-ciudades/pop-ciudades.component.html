@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item   *ngFor="let ciudad of ciudades" detail (click)="clickCiudad(ciudad)">
+  <ion-item   *ngFor="let ciudad of ciudades; let k = index" detail (click)="clickCiudad(ciudad)">
      {{ciudad.ciudad}}
   </ion-item>
 </ion-content>

@@ -13,6 +13,7 @@ import { TucuentaComponent } from './tucuenta/tucuenta.component';
 import { FormIdaVueltaLaboralComponent } from './form-ida-vuelta-laboral/form-ida-vuelta-laboral.component';
 import { FormIdaLaboralComponent } from './form-ida-laboral/form-ida-laboral.component';
 import { FormMultitrayectolaboralComponent } from './form-multitrayectolaboral/form-multitrayectolaboral.component';
+import { DetalleSolicitanteComponent } from './detalle-solicitante/detalle-solicitante.component';
 
 
 
@@ -27,7 +28,8 @@ import { FormMultitrayectolaboralComponent } from './form-multitrayectolaboral/f
     TucuentaComponent,
     FormIdaVueltaLaboralComponent,
     FormIdaLaboralComponent,
-    FormMultitrayectolaboralComponent
+    FormMultitrayectolaboralComponent,
+    DetalleSolicitanteComponent
   ],
   exports:[
     PopitemsComponent,
@@ -37,7 +39,8 @@ import { FormMultitrayectolaboralComponent } from './form-multitrayectolaboral/f
     TucuentaComponent, 
     FormIdaVueltaLaboralComponent,
     FormIdaLaboralComponent,
-    FormMultitrayectolaboralComponent
+    FormMultitrayectolaboralComponent,
+    DetalleSolicitanteComponent
 
   ],
   imports: [

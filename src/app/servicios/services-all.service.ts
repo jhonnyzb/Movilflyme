@@ -39,7 +39,7 @@ export class ServicesAllService {
 
 
   getCiudades(ciudad: any) {
-    return this.http.post('http://10.133.10.176/auth/cunsultaPaisesCurl/', ciudad)
+    return this.http.post(this.baseUrl + '/users/consultaPaisesCurl/', ciudad);
     
   }
 
@@ -49,105 +49,11 @@ export class ServicesAllService {
 
 
   opcionHomeTicket() {
-    return this.opcion = [
-      {
-        id: 1,
-        opcion: 'Anticipo',
-        value: 'anticipo',
-        opcionesInternas: [
-          {
-            opcion_: 'Por aprobar',
-            value_: 'poraprobar',
-          },
-          {
-            opcion_: 'Por desembolsar',
-            value_: 'pordesembolsar',
-          },
-          {
-            opcion_: 'Por legalizar',
-            value_: 'porlegalizar',
-          },
-        ]
+    return this.http.get(this.baseUrl + '/users/recordType');
+  }
 
-      },
-      {
-        id: 2,
-        opcion: 'Pasaje aereo',
-        value: 'pasaje_aereo',
-        opcionesInternas: [
-          {
-            opcion_: 'Por aprobar',
-            value_: 'solicitado',
-          },
-          {
-            opcion_: 'Aprobado',
-            value_: 'aprobado',
-          },
-          {
-            opcion_: 'Anulados',
-            value_: 'anulado',
-          },
-          {
-            opcion_: 'Rechazados',
-            value_: 'rechazado',
-          },
-        ]
-      },
-      {
-        id: 3,
-        opcion: 'Reembolso',
-        value: 'reembolso',
-        opcionesInternas: [
-          {
-            opcion_: 'Borrador',
-            value_: 'borrador',
-          },
-          {
-            opcion_: 'Por aprobar',
-            value_: 'poraprobar',
-          },
-          {
-            opcion_: 'Legalizados x aprobar',
-            value_: 'legalizadosxaprobar',
-          },
-          {
-            opcion_: 'Anulados',
-            value_: 'anulados',
-          },
-          {
-            opcion_: 'Rechazados',
-            value_: 'Rechazados',
-          },
-        ]
-      },
-      {
-        id: 4,
-        opcion: 'Aereo personal',
-        value: 'pasaje_aereo_personal',
-        opcionesInternas: [
-          {
-            opcion_: 'Solicitados',
-            value_: 'solicitado',
-          },
-          {
-            opcion_: 'Cotizados',
-            value_: 'cotizado'
-          },
-          {
-            opcion_: 'Aceptados',
-            value_: 'aceptado',
-          },
-          {
-            opcion_: 'Anulados',
-            value_: 'anulado',
-          },
-          {
-            opcion_: 'Rechazados',
-            value_: 'rechazado',
-          },
-        ]
-      }
-    ]
+  obtenerDetallesPasajes(idAnticipo){
+    return  this.http.post(this.baseUrl + '/users/detalleSolicitud', { anticipoId: idAnticipo } )
   }
 
 

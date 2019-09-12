@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'form-ticket-personal', loadChildren: './form-ticket-personal/form-ticket-personal.module#FormTicketPersonalPageModule' },
   { path: 'form-ticket-laboral', loadChildren: './form-ticket-laboral/form-ticket-laboral.module#FormTicketLaboralPageModule' },
-  { path: 'cuenta', loadChildren: './cuenta/cuenta.module#CuentaPageModule' }
+  { path: 'cuenta', loadChildren: './cuenta/cuenta.module#CuentaPageModule' },
+  { path: 'detalles-pasajes/:idAnticipo', loadChildren: './detalles-pasajes/detalles-pasajes.module#DetallesPasajesPageModule' },
  
 ];
 

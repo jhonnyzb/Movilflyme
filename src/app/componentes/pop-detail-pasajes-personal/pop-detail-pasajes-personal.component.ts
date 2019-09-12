@@ -3,6 +3,7 @@ import { NavParams, PopoverController } from '@ionic/angular';
 import { ServicesAllService } from 'src/app/servicios/services-all.service';
 
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
   opcion1: string = '';
 
   pageActual: number = 1;
-  constructor(public navParams:NavParams, private servicio: ServicesAllService, public popoverController: PopoverController, private storage: Storage) { 
+  constructor(public navParams:NavParams, private servicio: ServicesAllService, public popoverController: PopoverController, private storage: Storage, private router: Router) { 
 
     
     this.opcion1 = this.navParams.get('estado');
@@ -134,6 +135,12 @@ export class PopDetailPasajesPersonalComponent implements OnInit {
     }
 
 
+  }
+
+
+  detallePasaje(anticipoID){
+    this.router.navigate(['/detalles-pasajes',anticipoID])
+    this.popoverController.dismiss();
   }
 
   cerrarDetallesPasajes(){

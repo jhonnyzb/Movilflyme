@@ -19,6 +19,7 @@ export class FormTicketPersonalPage implements OnInit {
 
   fecha_actualI: any;
   fecha_actualR: any;
+  fecha_actual: Date = new Date();
   optionspickers;
   optionspickersH;
   optionspickersFr;
@@ -227,7 +228,7 @@ export class FormTicketPersonalPage implements OnInit {
     const { data } = await popover.onWillDismiss();
     let datosPasajeros = {
       tipoDocumento: data.pasajero.tipoDocumento,
-      documentoPasajero: data.pasajero.documentoPasajero,
+      documentoPasajero: String(data.pasajero.documentoPasajero),
       nombres: data.pasajero.nombres,
       apellidos: data.pasajero.apellidos,
       fechaNacimiento: data.pasajero.fechaNacimiento,
@@ -245,7 +246,7 @@ export class FormTicketPersonalPage implements OnInit {
       (res) => {
         let solicitud = {
           sessionId: res.sessionId,
-          fechaSolicitud:  moment().format('YYYY/MM/DD'),
+          fechaSolicitud:  moment().format('YYYY-MM-DD'),
           tipoVuelo: this.tipoVuelo,
           trayectoVuelo: this.trayecto,
           tipoRegistro:'pasaje_aereo_personal',
@@ -257,7 +258,8 @@ export class FormTicketPersonalPage implements OnInit {
           horaRegreso: this.hora_regreso,
           solicitanteId: res.solicitanteId,
           centroCostoId:res.IdCentroCosto,
-          SubCentroCostoId: res.idSubCentroCosto,
+          subCentroCostoId: res.idSubCentroCosto,
+          mesaId: res.mesaId,
           pasajeros: this.datosPasajeros
         }
         console.log(solicitud)
@@ -269,6 +271,7 @@ export class FormTicketPersonalPage implements OnInit {
               this.router.navigate(['/layout'])
             } 
             if (res.codigoRespuesta == 1001) {
+              console.log(res)
               let mensaje = 'Errada verifique campos'
               this.presentAlert(mensaje)
               this.router.navigate(['/layout'])

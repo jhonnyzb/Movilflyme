@@ -15,6 +15,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   opciones: any;
   opciones_: any[];
+  opcionesInternas : any[]= [];
   estado: any;
   controlPopover: number = 1;
   datosPasajes: FormGroup;
@@ -39,34 +40,87 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getOpcion() {
-    this.opciones = this.servicio.opcionHomeTicket();
+    this.servicio.opcionHomeTicket().subscribe(
+      (res)=>{
+        this.opciones = res
+      },
+      (error)=>{
+        console.log('error opciones tipo registro' ,error)
+      }
+    )
 
   }
 
   cambio(event: any) {
-
     if (event.detail.value === 'anticipo') {
-      this.estado = event.detail.value;
-      var index = this.opciones.findIndex(obj => obj.value === 'anticipo');
-      this.opciones_ = this.opciones[index].opcionesInternas;
+      this.estado = 'anticipo';
+       this.opcionesInternas = [
+        {
+          opcion_: 'Por aprobar',
+          value_: 'poraprobar',
+        },
+        {
+          opcion_: 'Por desembolsar',
+          value_: 'pordesembolsar',
+        },
+        {
+          opcion_: 'Por legalizar',
+          value_: 'porlegalizar',
+        },
+      ]
+     
+      this.opciones_ = this.opcionesInternas;
      
     }
     if (event.detail.value === 'pasaje_aereo') {
-      this.estado = event.detail.value;
-      var index = this.opciones.findIndex(obj => obj.value === 'pasaje_aereo');
-      this.opciones_ = this.opciones[index].opcionesInternas;
-     
-    }
-    if (event.detail.value === 'reembolso') {
-      this.estado = event.detail.value;
-      var index = this.opciones.findIndex(obj => obj.value === 'reembolso');
-      this.opciones_ = this.opciones[index].opcionesInternas;
+      this.estado = 'pasaje_aereo';
+      this.opcionesInternas = [
+        {
+          opcion_: 'Por aprobar',
+          value_: 'solicitado',
+        },
+        {
+          opcion_: 'Aprobado',
+          value_: 'aprobado',
+        },
+        {
+          opcion_: 'Anulados',
+          value_: 'anulado',
+        },
+        {
+          opcion_: 'Rechazados',
+          value_: 'rechazado',
+        },
+      ]
+      this.opciones_ = this.opcionesInternas;
      
     }
     if (event.detail.value === 'pasaje_aereo_personal') {
-      this.estado = event.detail.value;
-      var index = this.opciones.findIndex(obj => obj.value === 'pasaje_aereo_personal');
-      this.opciones_ = this.opciones[index].opcionesInternas;
+      this.estado = 'pasaje_aereo_personal';
+      this.opcionesInternas= [
+        {
+          opcion_: 'Solicitados',
+          value_: 'solicitado',
+        },
+        {
+          opcion_: 'Cotizados',
+          value_: 'cotizado'
+        },
+        {
+          opcion_: 'Aceptados',
+          value_: 'aceptado',
+        },
+        {
+          opcion_: 'Anulados',
+          value_: 'anulado',
+        },
+        {
+          opcion_: 'Rechazados',
+          value_: 'rechazado',
+        },
+      ]
+
+      this.opciones_ = this.opcionesInternas;
       
     }
 
@@ -76,9 +130,8 @@ export class HomePage implements OnInit, OnDestroy {
   cambioEstados(event) {
     if (this.controlPopover >= 2){
       this.controlPopover = 1;
-    }else{
-      
-      this.presentPopover(event.detail.value);
+    }else{  
+      this.presentPopover(event.detail.value); 
       
     }
      

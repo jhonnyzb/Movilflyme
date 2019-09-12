@@ -45,8 +45,7 @@
       <ion-label>Tipo de registro</ion-label>
       <ion-select placeholder="Seleccione uno" interface="popover" formControlName="tipoRegistro" (ionChange)="cambio($event)">
         <ion-select-option value="" disabled>Seleccione Uno</ion-select-option>
-        <ion-select-option *ngFor="let opcion of opciones" value="{{opcion.value}}">{{opcion.opcion}}
-        </ion-select-option>
+        <ion-select-option *ngFor="let opcion of opciones" value="{{opcion.sk_record_types}}">{{opcion.name}} </ion-select-option>
       </ion-select>
     </ion-item>
   </div>
@@ -61,3 +60,5 @@
   </div>
 </form>
 </ion-content>
+
+
