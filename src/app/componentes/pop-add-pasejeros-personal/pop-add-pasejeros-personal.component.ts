@@ -17,6 +17,7 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
   diaparcial: string = '';
   tipoDocumento: string = '';
   rpasaporte: boolean;
+  fechaNacimientoMostrar: string;
 
   pasajero = {
     documento: null,
@@ -48,6 +49,7 @@ export class PopAddPasejerosPersonalComponent implements OnInit {
             this.diaparcial = event.day.value;
           }
           this.fecha_nacimiento = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+          this.fechaNacimientoMostrar = this.fecha_nacimiento;
           
         }
       }, {

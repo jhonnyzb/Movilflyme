@@ -21,7 +21,7 @@
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating">Fecha ida</ion-label>
-        <ion-datetime [pickerOptions]="opcionesFechaIda" min="2019-08-30" max="2030-12-09" [ngModel]="fecha_actual.toISOString()"
+        <ion-datetime [pickerOptions]="opcionesFechaIda" min="2019-09-13" max="2030-12-09" [ngModel]="fecha_actual.toISOString()"
           monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
         </ion-datetime>
       </ion-item>
@@ -29,7 +29,7 @@
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating">Fecha Regreso</ion-label>
-        <ion-datetime [pickerOptions]="opcionesFechaRegreso" min="2019-08-30" max="2030-12-09" [ngModel]="fecha_actual.toISOString()"
+        <ion-datetime [pickerOptions]="opcionesFechaRegreso" [min]="fechaIda" max="2030-12-09" [ngModel]="fecha_actual.toISOString()"
           monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
         </ion-datetime>
       </ion-item>

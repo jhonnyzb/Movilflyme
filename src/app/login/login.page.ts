@@ -17,6 +17,8 @@ export class LoginPage implements OnInit, OnDestroy {
     password: ''
   }
   suscriptionLogin: Subscription;
+  loginCargue:boolean=false;
+  loginActual: boolean=true;
 
   constructor( private router: Router,private slogin: ServicesAllService, public alert: AlertController, private storage: Storage) { }
 
@@ -25,14 +27,20 @@ export class LoginPage implements OnInit, OnDestroy {
   
 
   LoginForm(){
+    this.loginCargue = true
+    this.loginActual = false
+
     this.suscriptionLogin = this.slogin.login(this.Usuario).subscribe(
       (res:any)=> {
+        this.loginCargue = false
+        this.loginActual = true
         console.log(res)
         if (res.codigoRespuesta == 0){
           this.storage.set('datos',res)
           this.router.navigate(['/layout'])
         }
         if(res.codigoRespuesta == 1001){
+          //this.router.navigate(['/layout'])
           this.presentAlert();
         } 
         if(res.codigoRespuesta == 1009){
@@ -41,7 +49,7 @@ export class LoginPage implements OnInit, OnDestroy {
         },
       (err)=>{
        this.presentAlertErrorBackend(err)
-       
+       //this.router.navigate(['/layout'])
        console.log(err)
     
       }

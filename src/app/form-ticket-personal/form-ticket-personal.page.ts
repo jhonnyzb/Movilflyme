@@ -19,6 +19,8 @@ export class FormTicketPersonalPage implements OnInit {
 
   fecha_actualI: any;
   fecha_actualR: any;
+  horaIdaI:any;
+  horaLLegadaR:any;
   fecha_actual: Date = new Date();
   optionspickers;
   optionspickersH;
@@ -44,7 +46,8 @@ export class FormTicketPersonalPage implements OnInit {
   cedula: string = '';
   centroDeCosto: String = '';
   subCentroCosto: string = '';
-  pasajero: any
+  pasajero: any;
+  nombre: any
 
 
   constructor(public popoverController: PopoverController, private servicio: ServicesAllService, public alert: AlertController, private router: Router, private storage: Storage) { }
@@ -91,6 +94,7 @@ export class FormTicketPersonalPage implements OnInit {
             this.horaparcial = event.hour.text;
           }
           this.hora_ida = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
+          this.horaIdaI = this.hora_ida;
           console.log(this.hora_ida)
         }
       }, {
@@ -143,6 +147,7 @@ export class FormTicketPersonalPage implements OnInit {
             this.horaparcial = event.hour.text;
           }
           this.hora_regreso = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
+          this.horaLLegadaR = this.hora_regreso
           console.log(this.hora_regreso)
         }
       }, {
@@ -153,15 +158,20 @@ export class FormTicketPersonalPage implements OnInit {
       }]
     }
 
-    this.obtenerDatosSolicitante()
+    this.obtenerDatosSolicitante();
   }
 
   obtenerDatosSolicitante() {
     this.storage.get('datos').then(
       (res) => {
         this.cedula = res.cedula,
+        this.nombre = res.nombre
           this.centroDeCosto = res.nombreCentroCosto,
           this.subCentroCosto = res.nombreSubCentroCosto
+      }
+    ).catch(
+      (err) => {
+        console.log('obtener datos local storage', err)
       }
     )
   }
@@ -268,10 +278,12 @@ export class FormTicketPersonalPage implements OnInit {
             if (res.codigoRespuesta == 0) {
               let mensaje = 'enviada con exito'
               this.presentAlert(mensaje)
+              this.datosPasajeros = [];
               this.router.navigate(['/layout'])
             } 
             if (res.codigoRespuesta == 1001) {
               console.log(res)
+              this.datosPasajeros = [];
               let mensaje = 'Errada verifique campos'
               this.presentAlert(mensaje)
               this.router.navigate(['/layout'])
@@ -279,6 +291,7 @@ export class FormTicketPersonalPage implements OnInit {
           },
           (err)=>{
             this.presentAlertErr();
+            this.datosPasajeros = [];
             console.log('error-2',err)
           }
         )

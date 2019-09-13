@@ -10,7 +10,10 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding color="footer">
-    <ion-avatar class="img-register animated infinite pulse ">
+    <ion-avatar *ngIf="loginCargue" class="img-register animated infinite pulse ">
+        <img src="../../assets/icon/loadin.gif">
+      </ion-avatar><br>
+    <ion-avatar *ngIf="loginActual" class="img-register animated infinite pulse ">
         <img src="../../assets/icon/user.svg">
       </ion-avatar><br>
       <form  (ngSubmit)="LoginForm()" class="animated bounceIn" >
@@ -23,9 +26,8 @@
           <ion-icon name="key" slot="start"></ion-icon>
       </ion-item><br><br><br>
       <div>
-          <ion-button  type="submit" mode="ios" expand="block" color="colorfooter">Entrar</ion-button>
+          <ion-button  type="submit" mode="ios" expand="block" color="botonlogin">Entrar</ion-button>
       </div>
      
     </form>
-
 </ion-content>

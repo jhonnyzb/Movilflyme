@@ -9,6 +9,7 @@ import { PopCiudadesComponent } from '../pop-ciudades/pop-ciudades.component';
 })
 export class FormIdaLaboralComponent implements OnInit {
 
+  fecha_actual: Date = new Date();
   textBotonCiudadO = 'Click para elegir';
   textBotonCiudadR = 'Click para elegir';
   opcionesFechaIda;
@@ -16,8 +17,11 @@ export class FormIdaLaboralComponent implements OnInit {
   diaparcial:any;
   fechaIda: string='';
   solicitaPasaje: string = '';
-  ciudadOrigen: string = '';
-  ciudadDestino: string = '';
+  ciudadOrigen: any;
+  ciudadDestino: any;
+  opcionesHoraIda;
+  horaIda:any;
+  horaparcial:any;
 
 
   constructor(public popoverController: PopoverController) { }
@@ -51,6 +55,28 @@ this.opcionesFechaIda= {
     }
   }]
 }
+
+//hora ida
+  this.opcionesHoraIda = {
+    buttons: [{
+      text: 'Guardar',
+      handler: (event) => {
+        let hora = event.hour.text;
+        if (hora.length === 1) {
+          this.horaparcial = '0' + hora;
+        }else{
+          this.horaparcial = event.hour.text;
+        }
+        this.horaIda = this.horaparcial + ':' + event.minute.text + ' ' + event.ampm.text;
+        console.log(this.horaIda)
+      }
+    }, {
+      text: 'Cancelar',
+      handler: () => {
+        console.log('');
+      }
+    }]
+  }
   }
 
 
@@ -59,16 +85,13 @@ this.opcionesFechaIda= {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
+      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
     this.ciudadOrigen = data.ciudad;
-    this.textBotonCiudadO = data.ciudad;
+    this.textBotonCiudadO = data.ciudad.ciudad;
   }
 
   //Ciudad Destino
@@ -76,34 +99,34 @@ this.opcionesFechaIda= {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
+      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
+   
     const { data } = await popover.onWillDismiss();
     this.ciudadDestino = data.ciudad;
-    this.textBotonCiudadR = data.ciudad;
+    this.textBotonCiudadR = data.ciudad.ciudad;
+   
   }
 
 
 
   cambioSolicitaPasaje(event){
+    this.solicitaPasaje = event.detail.value;
 
   }
 
   enviarDetalletrayectoIda(){
     let dataTrayectoIda = {
-      ciudadOrigen: this.ciudadOrigen,
-      ciudadOrigenId: '1',
-      ciudadDestino: this.ciudadDestino,
-      ciudadDestinoId:'2',
+      ciudadOrigen: this.ciudadOrigen.ciudad,
+      ciudadOrigenId: this.ciudadOrigen.ciudad_id,
+      ciudadDestino: this.ciudadDestino.ciudad,
+      ciudadDestinoId:this.ciudadDestino.ciudad_id,
       fechaida: this.fechaIda,
       fechaRegreso:'',
       solicitaPasaje: this.solicitaPasaje,
-      horaIda: '',
+      horaIda: this.horaIda,
       horaRegreso: ''
 
     }

@@ -28,7 +28,7 @@
     </ion-col>
     <ion-col size="4">
       <ion-label class="ion-label_">Solicita</ion-label>
-      <div class="div1 text-center">Jorge Sanchez</div>
+      <div class="div1 text-center">{{nombre}}</div>
     </ion-col>
   </ion-row>
   <ion-row>
@@ -49,6 +49,21 @@
     <ion-label color="primary">Detalles solicitud</ion-label>
   </ion-item>
 
+  <ion-row>
+  <ion-col size="6">
+    <ion-label class="ion-label_">Nac/Int </ion-label>
+    <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioTipo($event)">
+      <ion-select-option value="nacional" >Nacional</ion-select-option>
+      <ion-select-option value="internacional" >Internacional</ion-select-option>
+    </ion-select>
+  </ion-col>
+  <ion-col size="6">
+      <ion-item>
+        <ion-label class="ion-label_" position="floating"># viajero frecuente</ion-label>
+        <ion-input clearInput type="number"  name="numeroViajeroFrecuente" [(ngModel)]="numeroViajeroFrecuente" ></ion-input>
+      </ion-item>
+    </ion-col>
+</ion-row>
   <ion-row>
     <ion-col size="6">
       <ion-label class="ion-label_">Motivo </ion-label>
@@ -81,6 +96,7 @@
         <ion-select-option value="off">No</ion-select-option>
       </ion-select>
     </ion-col>
+   
   </ion-row>
 
   <ion-row>
@@ -120,8 +136,8 @@
       <ion-item>
         <ion-label class="ion-label_" position="floating">Fecha Desembolso</ion-label>
         <ion-datetime  [pickerOptions]="opcionesFechaDesembolso"  
-                        [ngModel]="fecha_actual.toISOString()"
-                        min="2019-08-29" max="2030-12-09"
+                        [ngModel]="fecha_actual"
+                        min="2019-09-13" max="2030-12-09"
                         monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
         </ion-datetime>
       </ion-item>
@@ -129,29 +145,24 @@
   </ion-row>
 
 
-  <ion-row>
+  <!-- <ion-row>
     <ion-col size="6">
       <ion-item>
         <ion-label class="ion-label_" position="floating">Fecha Nacimiento</ion-label>
         <ion-datetime   [pickerOptions]="opcionesFechaNacimiento"
-                        [ngModel]="fecha_actual.toISOString()"
+                        [ngModel]="fechaNacimientoMostrar"
                         min="1950-08-29" max="2030-12-09"
                         monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
         </ion-datetime>
       </ion-item>
     </ion-col>
-    <ion-col size="6">
-      <ion-item>
-        <ion-label class="ion-label_" position="floating"># viajero frecuente</ion-label>
-        <ion-input clearInput type="number"  name="numeroViajeroFrecuente" [(ngModel)]="numeroViajeroFrecuente" ></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+    
+  </ion-row> -->
   <ion-item text-center>
     <ion-label color="primary">Detalles Trayecto</ion-label>
   </ion-item>
   <ion-row padding>
-    <ion-col size="4" text-center>
+    <ion-col  size="4" text-center>
       <ion-button color="footer" (click)="PopFormIdaVuelta()">Ida y vuelta</ion-button>
     </ion-col>
     <ion-col size="4" text-center>

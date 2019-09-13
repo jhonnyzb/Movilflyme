@@ -14,7 +14,8 @@ export class DetallesPasajesPage implements OnInit {
 
   id: string;
   trayectos: any[] = [];
-  solicitante: any = {
+
+  solicitante = {
     name:'',
     last_name: '',
     costCenter:'',
@@ -33,6 +34,7 @@ export class DetallesPasajesPage implements OnInit {
   
 
   ngOnInit() {
+  
    this.obtenerDetallesPasajes();
   }
 
@@ -42,9 +44,10 @@ export class DetallesPasajesPage implements OnInit {
   obtenerDetallesPasajes(){
     this.servicio.obtenerDetallesPasajes(this.id).subscribe(
       (res:any)=>{
+        console.log(res);
         this.trayectos = res.trayectos;
         this.solicitante = res.solicitante;
-         console.log(this.trayectos);
+       
          
       },
       (erro)=>{

@@ -24,8 +24,8 @@ export class FormIdaVueltaLaboralComponent implements OnInit {
 
   textBotonCiudadO = 'Click para elegir';
   textBotonCiudadR = 'Click para elegir';
-  ciudadOrigen: string = '';
-  ciudadDestino: string = '';
+  ciudadOrigen: any;
+  ciudadDestino: any;
   solicitaPasaje: string = '';
 
   constructor(public popoverController: PopoverController) { }
@@ -141,16 +141,14 @@ this.opcionesFechaIda= {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
+      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
+    
     const { data } = await popover.onWillDismiss();
     this.ciudadOrigen = data.ciudad;
-    this.textBotonCiudadO = data.ciudad;
+    this.textBotonCiudadO = data.ciudad.ciudad;
   }
 
   //Ciudad Destino
@@ -158,16 +156,13 @@ this.opcionesFechaIda= {
 
     const popover = await this.popoverController.create({
       component: PopCiudadesComponent,
-      //componentProps: { idopcion: idvalue },
-      //cssClass: 'popover_class',
-      backdropDismiss: false,
+      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
     this.ciudadDestino = data.ciudad;
-    this.textBotonCiudadR = data.ciudad;
+    this.textBotonCiudadR = data.ciudad.ciudad;
   }
 
 
@@ -177,10 +172,10 @@ this.opcionesFechaIda= {
 
   enviarDetalletrayectoIdaVuelta(){
     let dataTrayectoIdaVuelta = {
-      ciudadOrigen: this.ciudadOrigen,
-      ciudadOrigenId: '1',
-      ciudadDestino: this.ciudadDestino,
-      ciudadDestinoId:'2',
+      ciudadOrigen: this.ciudadOrigen.ciudad,
+      ciudadOrigenId: this.ciudadOrigen.ciudad_id,
+      ciudadDestino: this.ciudadDestino.ciudad,
+      ciudadDestinoId: this.ciudadDestino.ciudad_id,
       fechaida: this.fechaIda,
       fechaRegreso: this.fechaRegreso,
       solicitaPasaje: this.solicitaPasaje,

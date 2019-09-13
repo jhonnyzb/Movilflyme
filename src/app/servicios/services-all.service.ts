@@ -12,7 +12,7 @@ export class ServicesAllService {
   details: any;
   Items: any;
   opcion: any;
-  baseUrl: string = 'http://10.133.10.223'
+  baseUrl: string = 'http://10.133.10.175'
   sesioid: any;
   constructor(private http: HttpClient, private storage: Storage ) { }
 

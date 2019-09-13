@@ -28,7 +28,7 @@
     </ion-col>
     <ion-col size="4">
         <ion-label class="ion-label_">Solicita</ion-label>
-        <div class="div1 text-center">Jorge Sanchez</div>
+        <div class="div1 text-center">{{nombre}}</div>
     </ion-col>
   </ion-row>
   <ion-row>
@@ -77,9 +77,9 @@
   <ion-row>
     <ion-col size="6" text-center >
       <ion-item>
-        <ion-label position="floating">Fecha Ida</ion-label>
+        <ion-label class="ion-label_" position="floating">Fecha Ida</ion-label>
         <ion-datetime [pickerOptions]="optionspickers" 
-                      min="2019-08-29" 
+                      min="2019-09-13" 
                       max="2030-12-09" 
                       [ngModel]="fecha_actualI" 
                       monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic" >
@@ -88,17 +88,17 @@
     </ion-col>
     <ion-col size="6" text-center>
         <ion-item>
-          <ion-label position="floating">Hora Ida</ion-label>
-          <ion-datetime [pickerOptions]="optionspickersH" displayFormat="h:mm A" value="00:00"></ion-datetime>
+          <ion-label class="ion-label_" position="floating">Hora Ida</ion-label>
+          <ion-datetime [pickerOptions]="optionspickersH" displayFormat="h:mm A" [ngModel]="horaIdaI" ></ion-datetime>
       </ion-item>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="banderaTrayecto">
     <ion-col size="6" text-center >
       <ion-item>
-        <ion-label position="floating">Fecha Regreso</ion-label>
+        <ion-label class="ion-label_" position="floating">Fecha Regreso</ion-label>
         <ion-datetime [pickerOptions]="optionspickersFr" 
-                      min="2019-08-29" 
+                      [min]="fecha_ida" 
                       max="2030-12-09" 
                       [ngModel]="fecha_actualR" 
                       monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic" >
@@ -107,8 +107,8 @@
     </ion-col>
     <ion-col size="6" text-center>
         <ion-item>
-          <ion-label position="floating">Hora Regreso</ion-label>
-          <ion-datetime [pickerOptions]="optionspickersHr" displayFormat="h:mm A" value="00:00"></ion-datetime>
+          <ion-label class="ion-label_" position="floating">Hora Regreso</ion-label>
+          <ion-datetime [pickerOptions]="optionspickersHr" displayFormat="h:mm A" [ngModel]="horaLLegadaR"></ion-datetime>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -132,10 +132,10 @@
         </ion-label>
       </ion-item>
     </ion-col>
-    <ion-col size="4">
+    <ion-col size="4" >
       <ion-item text-center>
-        <ion-label>
-            {{pasajero.apellidos}}
+          <ion-label>
+          <ion-icon name="trash" color="danger"></ion-icon>
         </ion-label>
       </ion-item>
     </ion-col>

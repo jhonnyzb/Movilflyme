@@ -23,7 +23,7 @@
             <ion-col size="6">
               <ion-item>
                 <ion-label class="ion-label_" position="floating">Fecha ida</ion-label>
-                <ion-datetime  [pickerOptions]="opcionesFechaIda" min="2019-08-30" max="2030-12-09"
+                <ion-datetime  [pickerOptions]="opcionesFechaIda" min="2019-08-30" max="2030-12-09" [ngModel]="fecha_actual.toISOString()"
                   monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
                 </ion-datetime>
               </ion-item>
@@ -31,7 +31,7 @@
             <ion-col size="6">
                 <ion-item>
                     <ion-label position="floating">Hora Ida</ion-label>
-                    <ion-datetime  displayFormat="h:mm A" value="00:00"></ion-datetime>
+                    <ion-datetime  [pickerOptions]="opcionesHoraIda" displayFormat="h:mm A" value="00:00"></ion-datetime>
                 </ion-item>
             </ion-col>
           </ion-row>
@@ -46,7 +46,7 @@
               </ion-col>
             </ion-row><br>
 
-            <ion-button color="footer" expand="block">
+            <ion-button color="footer" expand="block" (click)="enviarDetalletrayectoIda()">
                 <ion-icon name="save" slot="start"></ion-icon>
                 Guardar Trayecto
           </ion-button>

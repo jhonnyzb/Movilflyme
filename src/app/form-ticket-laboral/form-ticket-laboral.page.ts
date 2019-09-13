@@ -17,20 +17,22 @@ import * as moment from 'moment';
   styleUrls: ['./form-ticket-laboral.page.scss'],
 })
 export class FormTicketLaboralPage implements OnInit, OnDestroy {
+
   suscriptionLaboral: Subscription;
-  fecha_actual: Date = new Date();
+  fecha_actual = moment().format('YYYY-MM-DD');
+  fechaNacimientoMostrar: string = '';
   opcionesFechaDesembolso;
   opcionesFechaNacimiento;
   mesparcial: any;
   diaparcial:any;
-  fechaDesembolso: any;
+  fechaDesembolso: any = '';
   fechaNacimiento: any;
   numeroViajeroFrecuente: any;
   fecha: Date = new Date();
   motivo: string ='';
   solicitarAnticipo: string = '';
   descripcion: string = '';
-  valorAnticipo: number;
+  valorAnticipo: number = null;
   valorAnticipoLetras: string = '';
   desembolso: string = '';
   trayecto: string = '';
@@ -39,6 +41,11 @@ export class FormTicketLaboralPage implements OnInit, OnDestroy {
   subCentroCosto: string = '';
   anticipo: boolean = false;
   trayectos: any[]= [];
+  tipoVuelo: any;
+  botonSoloIda: boolean = true;
+  botonIdaVuelta: boolean = true;
+  botonMultiTrayecto: boolean = true;
+  nombre: any;
 
 
   constructor(public popoverController: PopoverController, private servicio:ServicesAllService, public alert: AlertController, private router: Router,private storage: Storage) { }
@@ -92,6 +99,8 @@ this.opcionesFechaNacimiento = {
         this.diaparcial = event.day.value;
       }
       this.fechaNacimiento = event.year.value + '-' + this.mesparcial + '-' + this.diaparcial;
+      this.fechaNacimientoMostrar = this.fechaNacimiento
+      
       console.log(this.fechaNacimiento)
     }
   }, {
@@ -110,6 +119,7 @@ this.obtenerDatosSolicitante();
   obtenerDatosSolicitante(){
     this.storage.get('datos').then(
       (res)=>{
+        this.nombre = res.nombre
         this.cedula = res.cedula,
         this.centroDeCosto = res.nombreCentroCosto,
         this.subCentroCosto = res.nombreSubCentroCosto
@@ -136,6 +146,8 @@ this.obtenerDatosSolicitante();
 
 
   async PopFormIdaVuelta() {
+    this.botonSoloIda = false;
+    this.botonMultiTrayecto = false;
     this.trayecto = 'ida_vuelta';
     const popover = await this.popoverController.create({
       component: FormIdaVueltaLaboralComponent,
@@ -183,6 +195,7 @@ this.obtenerDatosSolicitante();
       horaLlegada: data.infoTrayectoIda.horaRegreso,
       solicitaPasaje: data.infoTrayectoIda.solicitaPasaje
     }
+    console.log(trayectoIda)
     this.trayectos.push(trayectoIda); 
   }
 
@@ -191,10 +204,13 @@ this.obtenerDatosSolicitante();
     this.trayecto = 'multi_trayecto';
     const popover = await this.popoverController.create({
       component: FormMultitrayectolaboralComponent,
+      cssClass: 'popover_class',
       translucent: true
     });
     await popover.present();
     const { data } = await popover.onWillDismiss();
+    this.trayectos = data.infoMultitrayectos
+    console.log(this.trayectos)
   }
 
   cambioMotivo(event){
@@ -224,16 +240,16 @@ this.obtenerDatosSolicitante();
         let solicitudPasajeLaboral = {
           sessionId: res.sessionId,
           motivo:this.motivo,
-          tipoVuelo:'',
+          tipoVuelo: this.tipoVuelo,
           descripcion: this.descripcion,
-          tipoRegistro: '',
+          tipoRegistro: 'anticipo',
           solicitaAnticipo: this.solicitarAnticipo,
           valorAnticipo: this.valorAnticipo,
           valorAnticipoLetras: this.valorAnticipoLetras,          
           tipoDesembolso: this.desembolso,
           fechaRequeridaDesembolso: this.fechaDesembolso,
           trayectoVuelo: this.trayecto,
-          numeroViajeroFrecuente: this.numeroViajeroFrecuente,
+          numeroViajeroFrecuente: String(this.numeroViajeroFrecuente),
           solicitanteId: res.solicitanteId,
           centroCostoId: res.IdCentroCosto,
           subCentroCostoId: res.idSubCentroCosto,
@@ -243,10 +259,17 @@ this.obtenerDatosSolicitante();
         }
         console.log(solicitudPasajeLaboral);
         this.suscriptionLaboral = this.servicio.solicitudPasajeLaboral(solicitudPasajeLaboral).subscribe(
-          (res)=>{
-            this.router.navigate(['/layout'])
-            this.presentAlert();    
+          (res:any)=>{
             console.log(res)
+            if(res.codigoRespuesta === 1001){
+                this.presentAlerterror()
+                this.router.navigate(['/layout'])
+            }else{
+              this.presentAlert();    
+              this.router.navigate(['/layout'])
+              
+            }
+            
           },
           (err)=>{
             console.log(err)
@@ -267,7 +290,19 @@ this.obtenerDatosSolicitante();
     await alert.present();
   }
 
+  async presentAlerterror() {
+    const alert = await this.alert.create({
+      subHeader: 'error',
+      message: 'en la creacion de la solicitud',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
+  cambioTipo(event) {
+    this.tipoVuelo = event.detail.value;
+
+  }
 
 
   ngOnDestroy(){
