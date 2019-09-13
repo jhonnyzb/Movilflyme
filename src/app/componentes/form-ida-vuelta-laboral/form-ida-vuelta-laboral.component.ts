@@ -178,7 +178,9 @@ this.opcionesFechaIda= {
   enviarDetalletrayectoIdaVuelta(){
     let dataTrayectoIdaVuelta = {
       ciudadOrigen: this.ciudadOrigen,
+      ciudadOrigenId: '1',
       ciudadDestino: this.ciudadDestino,
+      ciudadDestinoId:'2',
       fechaida: this.fechaIda,
       fechaRegreso: this.fechaRegreso,
       solicitaPasaje: this.solicitaPasaje,
@@ -186,7 +188,6 @@ this.opcionesFechaIda= {
       horaRegreso: this.horaRegreso
 
     }
-    console.log(dataTrayectoIdaVuelta)
     this.popoverController.dismiss({
       infoTrayectoIdaVuelta : dataTrayectoIdaVuelta
     });

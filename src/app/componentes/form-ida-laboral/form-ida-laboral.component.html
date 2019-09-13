@@ -23,7 +23,7 @@
             <ion-col size="6">
               <ion-item>
                 <ion-label class="ion-label_" position="floating">Fecha ida</ion-label>
-                <ion-datetime min="2019-08-30" max="2030-12-09"
+                <ion-datetime  [pickerOptions]="opcionesFechaIda" min="2019-08-30" max="2030-12-09"
                   monthShortNames="ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic">
                 </ion-datetime>
               </ion-item>
@@ -40,8 +40,8 @@
               <ion-col size="12" text-center>
                 <ion-label class="ion-label_">Solicita pasaje</ion-label>
                 <ion-select placeholder="Seleccione uno" interface="popover" (ionChange)="cambioSolicitaPasaje($event)">
-                  <ion-select-option value="si">Si</ion-select-option>
-                  <ion-select-option value="no">No</ion-select-option>
+                  <ion-select-option value="on">Si</ion-select-option>
+                  <ion-select-option value="off">No</ion-select-option>
                 </ion-select>
               </ion-col>
             </ion-row><br>

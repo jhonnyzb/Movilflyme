@@ -8,6 +8,7 @@ import { ServicesAllService } from '../servicios/services-all.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
 
 
 @Component({
@@ -33,11 +34,11 @@ export class FormTicketLaboralPage implements OnInit, OnDestroy {
   valorAnticipoLetras: string = '';
   desembolso: string = '';
   trayecto: string = '';
-  detalleTrayectoIdaVuelta: any;
   cedula: string = '';
   centroDeCosto: String = '';
   subCentroCosto: string = '';
   anticipo: boolean = false;
+  trayectos: any[]= [];
 
 
   constructor(public popoverController: PopoverController, private servicio:ServicesAllService, public alert: AlertController, private router: Router,private storage: Storage) { }
@@ -146,25 +147,46 @@ this.obtenerDatosSolicitante();
     await popover.present();
     //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
-    this.detalleTrayectoIdaVuelta = data;
-    
-    
+    let trayectoIdaVuelta = {
+      ciudadOrigen: data.infoTrayectoIdaVuelta.ciudadOrigen,
+      ciudadOrigenId:data.infoTrayectoIdaVuelta. ciudadOrigenId,
+      ciudadDestino: data.infoTrayectoIdaVuelta.ciudadDestino,
+      ciudadDestinoId: data.infoTrayectoIdaVuelta.ciudadDestinoId,
+      fechaSalida: data.infoTrayectoIdaVuelta.fechaida,
+      fechaLlegada: data.infoTrayectoIdaVuelta.fechaRegreso,
+      horaSalida: data.infoTrayectoIdaVuelta.horaIda,
+      horaLlegada: data.infoTrayectoIdaVuelta.horaRegreso,
+      solicitaPasaje: data.infoTrayectoIdaVuelta.solicitaPasaje
+    }
+    this.trayectos.push(trayectoIdaVuelta);      
   }
+
+
 
   async PopFormIda() {
     this.trayecto = 'solo_ida';
     const popover = await this.popoverController.create({
       component: FormIdaLaboralComponent,
-      //componentProps: { idopcion: idvalue },
       cssClass: 'popover_class',
-      //backdropDismiss: false,
       translucent: true
     });
     await popover.present();
-    //const { data } = await popover.onDidDismiss();
     const { data } = await popover.onWillDismiss();
+    let trayectoIda = {
+      ciudadOrigen: data.infoTrayectoIda.ciudadOrigen,
+      ciudadOrigenId:data.infoTrayectoIda. ciudadOrigenId,
+      ciudadDestino: data.infoTrayectoIda.ciudadDestino,
+      ciudadDestinoId: data.infoTrayectoIda.ciudadDestinoId,
+      fechaSalida: data.infoTrayectoIda.fechaida,
+      fechaLlegada: data.infoTrayectoIda.fechaRegreso,
+      horaSalida: data.infoTrayectoIda.horaIda,
+      horaLlegada: data.infoTrayectoIda.horaRegreso,
+      solicitaPasaje: data.infoTrayectoIda.solicitaPasaje
+    }
+    this.trayectos.push(trayectoIda); 
   }
 
+  
   async PopFormMultitrayecto() {
     this.trayecto = 'multi_trayecto';
     const popover = await this.popoverController.create({
@@ -200,20 +222,24 @@ this.obtenerDatosSolicitante();
     this.storage.get('datos').then(
       (res)=>{
         let solicitudPasajeLaboral = {
-          sessionId:res.sessionId,
+          sessionId: res.sessionId,
           motivo:this.motivo,
-          solicitaAnticipo: this.solicitarAnticipo,
+          tipoVuelo:'',
           descripcion: this.descripcion,
+          tipoRegistro: '',
+          solicitaAnticipo: this.solicitarAnticipo,
           valorAnticipo: this.valorAnticipo,
-          valorAnticipoLetras: this.valorAnticipoLetras,
+          valorAnticipoLetras: this.valorAnticipoLetras,          
           tipoDesembolso: this.desembolso,
           fechaRequeridaDesembolso: this.fechaDesembolso,
           trayectoVuelo: this.trayecto,
-          numeroViajeroFrecuente: String(this.numeroViajeroFrecuente) ,
-          fechaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaida,
-          fechaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.fechaRegreso,
-          horaSalida: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaIda,
-          horaLlegada: this.detalleTrayectoIdaVuelta.infoTrayectoIdaVuelta.horaRegreso
+          numeroViajeroFrecuente: this.numeroViajeroFrecuente,
+          solicitanteId: res.solicitanteId,
+          centroCostoId: res.IdCentroCosto,
+          subCentroCostoId: res.idSubCentroCosto,
+          fechaSolicitud: moment().format('YYYY-MM-DD'),
+          mesaId: res.mesaId,  
+          trayecto: this.trayectos
         }
         console.log(solicitudPasajeLaboral);
         this.suscriptionLaboral = this.servicio.solicitudPasajeLaboral(solicitudPasajeLaboral).subscribe(
@@ -227,6 +253,8 @@ this.obtenerDatosSolicitante();
           }
         )
       }
+    ).catch(
+      err=> console.log('error de datos localstorage')
     )
   }
 
